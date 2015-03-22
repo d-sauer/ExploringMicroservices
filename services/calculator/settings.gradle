@@ -1,0 +1,4 @@
+rootProject.name = 'calculator'
+
+include ':api'
+include ':commons'

@@ -1,0 +1,16 @@
+# Ignore Gradle temp folders
+**/.gradle
+**/build
+
+# Ignore IntellJ files
+/.idea/
+**/*.iws
+**/*.ipr
+**/*.iml
+**/target/
+**/overlays/
+
+# Ignore Eclipse project files
+**/.settings/
+**/.project
+**/.classpath
