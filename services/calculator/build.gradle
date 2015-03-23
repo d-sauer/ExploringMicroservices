@@ -1,11 +1,8 @@
-apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-
-sourceCompatibility = 1.8
+// Inherit from root project
 
 dependencies {
-
-	
     compile project(':api')
     compile project(':commons')
+    
+    
 }

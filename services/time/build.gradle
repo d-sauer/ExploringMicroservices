@@ -1,14 +1,9 @@
-apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'idea'
+// Inherit from root project
 
 apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.8
 
-repositories {
-   mavenCentral()
-}
 
 buildscript {
     repositories {
@@ -30,7 +25,6 @@ dependencies {
     }
     compile("org.springframework.boot:spring-boot-starter-jetty")
 
-    compile('org.springframework.boot:spring-boot-autoconfigure')
-	
+    compile('org.springframework.boot:spring-boot-autoconfigure')	
 }
 

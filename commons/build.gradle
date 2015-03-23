@@ -1,13 +1,4 @@
-apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'idea'
-
-sourceCompatibility = 1.8
-
-
-repositories {
-   mavenCentral()
-}
+// Inherit from root project
 
 dependencies {
     // Loging
@@ -16,11 +7,4 @@ dependencies {
     compile("org.slf4j:jcl-over-slf4j:1.7.10")
     
     testCompile 'junit:junit:4.11'
-}
-
-eclipse {
-    classpath {
-       downloadSources=true
-       downloadJavadoc=true
-    }
 }

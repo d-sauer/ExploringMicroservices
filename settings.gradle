@@ -1,8 +1,9 @@
 rootProject.name = 'ExploringMicroservices'
 
 // Define project dependencies for multi-part project 
-include 'api', 'commons'
+// Standard components
+include ':api', ':commons'
 
 // Add services
-include 'services:calculator'
-include 'services:time'
+include ':services:calculator'
+include ':services:time'

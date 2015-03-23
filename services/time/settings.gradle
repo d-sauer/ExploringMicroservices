@@ -1,4 +1,0 @@
-rootProject.name = 'time'
-
-include ':api'
-include ':commons'
