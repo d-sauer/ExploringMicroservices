@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TimeController implements Logger {
 
-    @RequestMapping(name = "/time", method = { RequestMethod.GET }, produces = { "application/json" })
+    @RequestMapping(value = "/time", method = { RequestMethod.GET }, produces = { "application/json" })
     public DateTime getCurrentTime() {
         trace("Request: Get Current time");
         LocalDateTime now = LocalDateTime.now();

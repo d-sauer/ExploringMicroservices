@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorController implements Logger {
 
-    @RequestMapping(name = "/calculate",params = {"expression"}, method = { RequestMethod.GET }, produces = { "application/json" })
+    @RequestMapping(value = "/calculate",params = {"expression"}, method = { RequestMethod.GET }, produces = { "application/json" })
     public Result calculate(@RequestParam String expression) {
         info("Calculating equation: {}", expression);
         Result result = new Result();
@@ -32,7 +32,7 @@ public class CalculatorController implements Logger {
         return result;
     }
 
-    @RequestMapping(name = "/calculate")
+    @RequestMapping(value = "/calculate")
     public String calculate() {
         return "To calculate equation use url: /calculate?expression=&lt;math expression&gt;";
     }

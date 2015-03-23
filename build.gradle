@@ -26,6 +26,18 @@ subprojects {
         manifest.attributes provider: 'gradle'
     }
     
+    /*
+    task bootRunDebug (type: GradleBuild) {
+        description("Run 'bootRun' with debug mode enabled")
+        group ("Application")
+        
+        doFirst {
+            
+        }
+
+        tasks = ['bootRun']
+    }
+    */
 }
 
 
