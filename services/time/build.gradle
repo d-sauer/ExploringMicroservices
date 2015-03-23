@@ -2,9 +2,6 @@
 
 apply plugin: 'spring-boot'
 
-sourceCompatibility = 1.8
-
-
 buildscript {
     repositories {
         mavenCentral()
@@ -26,5 +23,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jetty")
 
     compile('org.springframework.boot:spring-boot-autoconfigure')	
+    
 }
 

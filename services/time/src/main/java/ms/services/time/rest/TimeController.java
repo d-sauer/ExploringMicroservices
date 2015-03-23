@@ -1,19 +1,24 @@
 package ms.services.time.rest;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import ms.commons.logging.Logger;
+import ms.services.time.dto.DateTime;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TimeController {
+public class TimeController implements Logger {
 
     @RequestMapping(name = "/time", method = { RequestMethod.GET }, produces = { "application/json" })
-    public String getCurrentTime() {
-        Date now = new Date();
-        return now.toString();
-//        LocalDateTime now = LocalDateTime.now();
-//        return now.toString();
+    public DateTime getCurrentTime() {
+        trace("Request: Get Current time");
+        LocalDateTime now = LocalDateTime.now();
+        DateTime datetime = new DateTime();
+        datetime.setDateTime(now);
+        
+        return datetime;
     }
 }

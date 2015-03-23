@@ -1,8 +1,28 @@
 // Inherit from root project
 
+apply plugin: 'spring-boot'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE")
+    }
+}
+
 dependencies {
     compile project(':api')
     compile project(':commons')
     
+    // Spring-Boot
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+
+    compile('org.springframework.boot:spring-boot-autoconfigure')
     
+    // Calculator library
+    compile group:'org.jdice', name:'jcalc', version:'0.4b'
 }

@@ -1,17 +1,16 @@
-apply plugin: 'eclipse-wtp'
-apply plugin: 'idea'
-
-eclipse {
-    classpath {
-       downloadSources=true
-       downloadJavadoc=true
-    }
-}
-
 subprojects {
     apply plugin: 'java'
+	apply plugin: 'eclipse-wtp'
+	apply plugin: 'idea'
+	
+	eclipse {
+	    classpath {
+	       downloadSources=true
+	       downloadJavadoc=true
+	    }
+	}
 
-    sourceCompatibility = 1.7
+    sourceCompatibility = 1.8
 
     repositories {
        mavenCentral()
