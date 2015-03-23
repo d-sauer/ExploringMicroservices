@@ -1,11 +1,36 @@
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+
+apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.8
 
-dependencies {
-
-	
-    compile project(':api')
-    compile project(':commons')
+repositories {
+   mavenCentral()
 }
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE")
+    }
+}
+
+dependencies {
+    // Project dependencies
+    compile project(':commons')
+    compile project(':api')
+
+    // Spring-Boot
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+
+    compile('org.springframework.boot:spring-boot-autoconfigure')
+	
+}
+
