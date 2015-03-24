@@ -11,6 +11,9 @@ public class DiscoverabilityData {
 
     @JsonProperty("service_description")
     public String serviceDescription;
+    
+    @JsonProperty("service_heart_beat")
+    public Long headrBeat;
 
     /**
      * @return the serviceName
@@ -38,6 +41,20 @@ public class DiscoverabilityData {
      */
     public void setServiceDescription(String serviceDescription) {
         this.serviceDescription = serviceDescription;
+    }
+
+    /**
+     * @return the headrBeat
+     */
+    public Long getHeadrBeat() {
+        return headrBeat;
+    }
+
+    /**
+     * @param headrBeat the headrBeat to set
+     */
+    public void setHeadrBeat(Long headrBeat) {
+        this.headrBeat = headrBeat;
     }
     
 }

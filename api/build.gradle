@@ -1,10 +1,26 @@
 // Inherit from root project
+def spring_boot_version = '1.2.2.RELEASE'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE")
+    }
+}
+
 
 dependencies {
     // Project dependencies
     compile project (':commons')
     
-    compile("org.springframework:spring-web:4.1.5.RELEASE") 
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.5.1'
-    
+    // Spring-Boot
+    compile (group: "org.springframework.boot", name:"spring-boot-starter-web", version: spring_boot_version) {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile( group: "org.springframework.boot", name: "spring-boot-starter-jetty", version: spring_boot_version)
+    compile( group: "org.springframework.boot", name: "spring-boot-autoconfigure", version: spring_boot_version)   
+    //compile('org.springframework.boot:spring-boot-starter-security:1.2.2.RELEASE')
+    //compile("org.springframework.boot:spring-boot-starter-actuator:1.2.2.RELEASE")
 }

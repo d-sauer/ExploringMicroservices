@@ -1,15 +1,14 @@
 package ms.services.time;
 
-import org.springframework.boot.SpringApplication;
+import ms.api.service.Microservice;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
-public class Application {
+public class Application extends Microservice {
 
-
-    public static void main(String[] args) {
-        ApplicationContext ctx = SpringApplication.run(Application.class, args);
+    public static void main(String [] args) {
+        Microservice.run(Application.class, args);
     }
     
 }

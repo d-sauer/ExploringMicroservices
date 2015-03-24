@@ -16,14 +16,5 @@ dependencies {
     compile project(':commons')
     compile project(':api')
 
-    // Spring-Boot
-    compile("org.springframework.boot:spring-boot-starter-web") {
-        exclude module: "spring-boot-starter-tomcat"
-    }
-    compile("org.springframework.boot:spring-boot-starter-jetty")
-    
-    compile('org.springframework.boot:spring-boot-autoconfigure')   
-    //compile('org.springframework.boot:spring-boot-starter-security')
-    compile("org.springframework.boot:spring-boot-starter-actuator")
 }
 
