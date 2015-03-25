@@ -15,6 +15,8 @@ public class DiscoverabilityData {
     @JsonProperty("service_heart_beat")
     public Long headrBeat;
 
+    public String servletInfo;
+
     /**
      * @return the serviceName
      */
@@ -55,6 +57,20 @@ public class DiscoverabilityData {
      */
     public void setHeadrBeat(Long headrBeat) {
         this.headrBeat = headrBeat;
+    }
+
+    /**
+     * @return the servletInfo
+     */
+    public String getServletInfo() {
+        return servletInfo;
+    }
+
+    /**
+     * @param servletInfo the servletInfo to set
+     */
+    public void setServletInfo(String servletInfo) {
+        this.servletInfo = servletInfo;
     }
     
 }

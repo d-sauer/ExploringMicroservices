@@ -14,4 +14,4 @@
 **/.settings/
 **/.project
 **/.classpath
-/bin/
+**/bin

@@ -1,15 +1,11 @@
 subprojects {
     apply plugin: 'java'
+	apply plugin: "war"
 	apply plugin: 'eclipse-wtp'
 	apply plugin: 'idea'
-	
-	eclipse {
-	    classpath {
-	       downloadSources=true
-	       downloadJavadoc=true
-	    }
-	}
 
+
+    version = '0.0.1'
     sourceCompatibility = 1.8
 
     repositories {
@@ -20,12 +16,53 @@ subprojects {
         testCompile 'junit:junit:4.11'
     }
 
-    version = '1.0'
+	processResources {
+	    expand(project.properties)
+	}
 
     jar {
         manifest.attributes provider: 'gradle'
+        manifest {
+            attributes 'Implementation-Title': project.name, 
+                       'Implementation-Version': project.version,
+                       'Build-By': System.getProperty('user.name'),
+                       'Build-JDK': System.getProperty('java.version'),
+                       'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+			           'Source-Compatibility': project.sourceCompatibility,
+			           'Target-Compatibility': project.targetCompatibility
+        }
     }
-    
+
+    war {
+        manifest.attributes provider: 'gradle'
+        manifest {
+            attributes 'Implementation-Title': project.name, 
+                       'Implementation-Version': project.version,
+                       'Build-By': System.getProperty('user.name'),
+                       'Build-JDK': System.getProperty('java.version'),
+                       'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                       'Source-Compatibility': project.sourceCompatibility,
+                       'Target-Compatibility': project.targetCompatibility
+        }
+        
+        // exclude all jetty files from WAR file
+        //rootSpec.exclude("**/jetty-*.jar")
+    }
+
+	eclipse {
+	    classpath {
+	       downloadSources=true
+	       downloadJavadoc=true
+	    }
+	}
+	
+	idea {
+	    module {
+	        downloadJavadoc = true
+	        downloadSources = true
+        }
+    }   
+
     /*
     task bootRunDebug (type: GradleBuild) {
         description("Run 'bootRun' with debug mode enabled")
@@ -38,6 +75,32 @@ subprojects {
         tasks = ['bootRun']
     }
     */
-}
 
+	//
+	// Microservices
+	//
+	task buildMS {
+	    description("Build microservices")
+	    group("Microservices")
+	    
+	    doFirst {
+	        println "Building Microservices"
+	    }
+	}
+	
+	
+	//
+	// Monolithic
+	//
+	task buildMono {
+	    description("Build monolithic WAR")
+	    group("Monolithic")
+	    
+	    doFirst {
+	        println "Building monolithic WAR"
+	    }
+	}
+
+
+}
 
