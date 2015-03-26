@@ -20,35 +20,34 @@ subprojects {
 	    expand(project.properties)
 	}
 
-    jar {
-        manifest.attributes provider: 'gradle'
-        manifest {
-            attributes 'Implementation-Title': project.name, 
+    ext.sharedManifest = manifest {
+            attributes('provider' : 'gradle',
+                       'Implementation-Title': project.name, 
                        'Implementation-Version': project.version,
                        'Build-By': System.getProperty('user.name'),
                        'Build-JDK': System.getProperty('java.version'),
                        'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
 			           'Source-Compatibility': project.sourceCompatibility,
-			           'Target-Compatibility': project.targetCompatibility
+			           'Target-Compatibility': project.targetCompatibility)
+    }
+
+    jar {
+        manifest = project.manifest {
+            from sharedManifest
         }
     }
+
 
     war {
-        manifest.attributes provider: 'gradle'
-        manifest {
-            attributes 'Implementation-Title': project.name, 
-                       'Implementation-Version': project.version,
-                       'Build-By': System.getProperty('user.name'),
-                       'Build-JDK': System.getProperty('java.version'),
-                       'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                       'Source-Compatibility': project.sourceCompatibility,
-                       'Target-Compatibility': project.targetCompatibility
+        manifest = project.manifest {
+            from sharedManifest
         }
-        
-        // exclude all jetty files from WAR file
-        //rootSpec.exclude("**/jetty-*.jar")
     }
 
+
+    //
+    // Setup IDE
+    //
 	eclipse {
 	    classpath {
 	       downloadSources=true
@@ -63,44 +62,33 @@ subprojects {
         }
     }   
 
-    /*
-    task bootRunDebug (type: GradleBuild) {
-        description("Run 'bootRun' with debug mode enabled")
-        group ("Application")
-        
-        doFirst {
-            
-        }
 
-        tasks = ['bootRun']
-    }
-    */
-
-	//
-	// Microservices
-	//
-	task buildMS {
-	    description("Build microservices")
-	    group("Microservices")
-	    
-	    doFirst {
-	        println "Building Microservices"
-	    }
-	}
-	
-	
-	//
-	// Monolithic
-	//
-	task buildMono {
-	    description("Build monolithic WAR")
-	    group("Monolithic")
-	    
-	    doFirst {
-	        println "Building monolithic WAR"
-	    }
-	}
 
 
 }
 
+
+//
+// Microservices
+//
+task buildMS {
+    description("Build microservices")
+    group("Microservices")
+    
+    doFirst {
+        println "Building Microservices"
+    }
+}
+
+
+//
+// Monolithic
+//
+task buildMono {
+    description("Build monolithic WAR")
+    group("Monolithic")
+    
+    doFirst {
+        println "Building monolithic WAR"
+    }
+}

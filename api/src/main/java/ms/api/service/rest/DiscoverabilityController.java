@@ -16,7 +16,7 @@ public class DiscoverabilityController {
 
     @RequestMapping("/discover")
     public DiscoverabilityData discover() {
-        DiscoverabilityData discover = new DiscoverabilityData();
+        DiscoverabilityData discover = new DiscoverabilityData(servletContext);
         
         discover.setServletInfo(servletContext.getServerInfo());
         

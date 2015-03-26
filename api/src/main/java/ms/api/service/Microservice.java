@@ -1,7 +1,7 @@
 package ms.api.service;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +16,12 @@ public class Microservice extends SpringBootServletInitializer implements WebApp
     }
 
     public static ApplicationContext run(Class<?> clazz, String... args) {
-        return SpringApplication.run(clazz, args);
+        SpringApplicationBuilder appBuilder = new SpringApplicationBuilder();
+        if (clazz != Microservice.class)
+            appBuilder.sources(Microservice.class);
+
+        appBuilder.sources(clazz);
+
+        return appBuilder.run(args);
     }
 }
