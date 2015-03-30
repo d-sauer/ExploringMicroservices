@@ -5,6 +5,10 @@ import org.slf4j.Marker;
 
 public interface Logger extends org.slf4j.Logger {
 
+    public static org.slf4j.Logger getLogger(Class<?> clazz) {
+        return LoggerFactory.getLogger(clazz);
+    }
+    
     default public org.slf4j.Logger logger() {
         return LoggerFactory.getLogger(getClass());
     }

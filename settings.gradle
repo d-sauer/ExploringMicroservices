@@ -7,3 +7,4 @@ include ':api', ':commons'
 // Add services
 include ':services:calculator'
 include ':services:time'
+include ':services:shared'

@@ -1,21 +1,20 @@
-package ms.api.service.dto;
+package ms.services.shared.dto;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
-
-import ms.commons.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
-public class DiscoverabilityData implements Logger {
+public class DiscoverData {
 
+    
     @JsonProperty("service_name")
     public String serviceName;
 
@@ -30,8 +29,10 @@ public class DiscoverabilityData implements Logger {
     @JsonProperty("manifest")
     public HashMap<String, String> manifestFile = new HashMap<>();
 
-    public DiscoverabilityData(ServletContext servletContext) {
+    public DiscoverData(ServletContext servletContext) {
         if (servletContext != null) {
+            servletInfo = servletContext.getServerInfo();
+            
             try {
                 InputStream is = servletContext.getResourceAsStream("/META-INF/MANIFEST.MF");
                 if (is != null) {
@@ -60,26 +61,10 @@ public class DiscoverabilityData implements Logger {
     }
 
     /**
-     * @param serviceName
-     *            the serviceName to set
-     */
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    /**
      * @return the serviceDescription
      */
     public String getServiceDescription() {
         return serviceDescription;
-    }
-
-    /**
-     * @param serviceDescription
-     *            the serviceDescription to set
-     */
-    public void setServiceDescription(String serviceDescription) {
-        this.serviceDescription = serviceDescription;
     }
 
     /**
@@ -90,26 +75,10 @@ public class DiscoverabilityData implements Logger {
     }
 
     /**
-     * @param headrBeat
-     *            the headrBeat to set
-     */
-    public void setHeadrBeat(Long headrBeat) {
-        this.headrBeat = headrBeat;
-    }
-
-    /**
      * @return the servletInfo
      */
     public String getServletInfo() {
         return servletInfo;
-    }
-
-    /**
-     * @param servletInfo
-     *            the servletInfo to set
-     */
-    public void setServletInfo(String servletInfo) {
-        this.servletInfo = servletInfo;
     }
 
     /**
@@ -119,4 +88,5 @@ public class DiscoverabilityData implements Logger {
         return manifestFile;
     }
 
+    
 }

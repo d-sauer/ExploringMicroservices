@@ -15,7 +15,6 @@ dependencies {
     // Project dependencies
     compile project(':commons')
     compile project(':api')
-    compile project(':services:shared')
 
 }
 

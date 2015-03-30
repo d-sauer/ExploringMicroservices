@@ -12,7 +12,7 @@
 <!-- 	<logger name="org.springframework" level="INFO" /> -->
 <!-- 	<logger name="org.springframework.beans" level="DEBUG" /> -->
 
-	<logger name="ms.services.time" level="TRACE" />
+	<logger name="ms" level="TRACE" />
 
 	<root level="WARN">
 		<appender-ref ref="console" />

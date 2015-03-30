@@ -6,7 +6,7 @@ CONTENT="time-0.0.1"
 WARFOLDER="/Users/davor/development/my_repos/ExploringMicroservices/services/time/build/libs"
 WARPATH="$WARFOLDER/time-0.0.1.war"
 SERVER_BIN="/Users/davor/development/servers/apache-tomcat-8.0.20/bin"
-TEST_URL=('/info' '/discover' '/time')
+TEST_URL=('/info' '/api/discover' '/time')
 
 export JAVA_HOME=$JAVA_8_HOME && JDK_HOME=$JAVA_8_HOME && JRE_HOME=$JAVA_8_HOME
 java -version
