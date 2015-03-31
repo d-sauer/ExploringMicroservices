@@ -21,7 +21,6 @@ public class DiscoverController implements Logger {
     
     @PostConstruct
     private void postConstruct() {
-        debug("Register SHARED controller");
         discoverData = new DiscoverData(servletContext);
     }
     

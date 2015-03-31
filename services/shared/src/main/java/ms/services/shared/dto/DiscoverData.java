@@ -1,20 +1,24 @@
 package ms.services.shared.dto;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.jar.JarFile;
 
 import javax.servlet.ServletContext;
+
+import ms.commons.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
-public class DiscoverData {
+public class DiscoverData implements Logger {
 
-    
     @JsonProperty("service_name")
     public String serviceName;
 
@@ -32,9 +36,19 @@ public class DiscoverData {
     public DiscoverData(ServletContext servletContext) {
         if (servletContext != null) {
             servletInfo = servletContext.getServerInfo();
-            
+
+            //
+            // Read MANIFEST.MF
+            //
             try {
-                InputStream is = servletContext.getResourceAsStream("/META-INF/MANIFEST.MF");
+                InputStream is = servletContext.getResourceAsStream("/META-INF/" + JarFile.MANIFEST_NAME);
+                if (is == null) {
+                    is = getClass().getClassLoader().getResourceAsStream("/META-INF/" + JarFile.MANIFEST_NAME);
+                    
+                    URL url = getClass().getClassLoader().getResource("/");
+                    info("Manifest url: {}", url);
+                }
+
                 if (is != null) {
                     Properties prop = new Properties();
                     prop.load(is);
@@ -42,7 +56,8 @@ public class DiscoverData {
                         manifestFile.put(mfe.getKey().toString(), mfe.getValue().toString());
 
                     }
-                } else {
+                }
+                else {
                     manifestFile.put("error", "Can't read manifest file from /META-INF/MANIFEST.MF");
                 }
             }
@@ -88,5 +103,4 @@ public class DiscoverData {
         return manifestFile;
     }
 
-    
 }

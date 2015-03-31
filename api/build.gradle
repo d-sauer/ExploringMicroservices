@@ -18,7 +18,7 @@ dependencies {
 	// Library dependencies    
 	compile "org.springframework.boot:spring-boot:+"
 	compile "org.springframework.boot:spring-boot-autoconfigure:+"
-	compile "com.fasterxml.jackson.core:jackson-databind:+"
+	//compile "com.fasterxml.jackson.core:jackson-databind:+"
 	compile "org.springframework:spring-core:+"
 	compile "org.springframework:spring-context:+"
 	compile "org.springframework:spring-web:+"

@@ -16,5 +16,6 @@ dependencies {
     compile project(':commons')
     compile project(':api')
 
+    compile "org.springframework:spring-context:+"
 }
 

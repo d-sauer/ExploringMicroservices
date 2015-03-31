@@ -15,7 +15,8 @@ dependencies {
     // Project dependencies
     compile project(':commons')
     compile project(':api')
-
+    compile project(':services:shared')
+    
     // Microservice dependencies
     compile 'org.jdice:jcalc:0.4b'
 }

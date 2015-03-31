@@ -6,8 +6,7 @@ dependencies {
     compile("ch.qos.logback:logback-classic:1.1.2")
     compile("org.slf4j:jcl-over-slf4j:1.7.10")
     
-    compile("com.fasterxml.jackson:jackson-parent:2.5")
-    
+    compile("com.fasterxml.jackson:jackson-parent:+")
     // Test
-    testCompile 'junit:junit:4.11'
+    //testCompile 'junit:junit:4.11'
 }

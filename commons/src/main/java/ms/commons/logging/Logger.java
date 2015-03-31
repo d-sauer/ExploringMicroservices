@@ -3,6 +3,10 @@ package ms.commons.logging;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 public interface Logger extends org.slf4j.Logger {
 
     public static org.slf4j.Logger getLogger(Class<?> clazz) {
@@ -23,6 +27,7 @@ public interface Logger extends org.slf4j.Logger {
     /**
      * {@inheritDoc}
      */
+    @JsonIgnore
     default public boolean isTraceEnabled() {
         return logger().isTraceEnabled();
     }
@@ -107,6 +112,7 @@ public interface Logger extends org.slf4j.Logger {
     /**
      * {@inheritDoc}
      */
+    @JsonIgnore
     default public boolean isDebugEnabled() {
         return logger().isDebugEnabled();
     }
@@ -191,6 +197,7 @@ public interface Logger extends org.slf4j.Logger {
     /**
      * {@inheritDoc}
      */
+    @JsonIgnore
     default public boolean isInfoEnabled() {
         return logger().isInfoEnabled();
     }
@@ -275,6 +282,7 @@ public interface Logger extends org.slf4j.Logger {
     /**
      * {@inheritDoc}
      */
+    @JsonIgnore
     default public boolean isWarnEnabled() {
         return logger().isWarnEnabled();
     }
@@ -359,6 +367,7 @@ public interface Logger extends org.slf4j.Logger {
     /**
      * {@inheritDoc}
      */
+    @JsonIgnore
     default public boolean isErrorEnabled() {
         return logger().isErrorEnabled();
     }

@@ -13,6 +13,9 @@ subprojects {
     }
 
     dependencies {
+        compile 'com.fasterxml.jackson.core:jackson-core:+'
+        compile 'com.fasterxml.jackson.core:jackson-databind:+'
+        
         testCompile 'junit:junit:4.11'
     }
 

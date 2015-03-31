@@ -1,1 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.services.shared.rest.DiscoverController
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.services.shared.rest.DiscoverController
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.services.shared.AppConfiguration
