@@ -1,0 +1,26 @@
+task buildMS {
+    description("Build microservices")
+    group("Microservices")
+    
+    doFirst {
+        println "Building Microservices"
+    }
+}
+
+task listMS {
+    description("List microservices inside project")
+    group("Microservices")
+    
+    doFirst {
+        println "TODO: List all services"
+    }
+}
+
+task createMS {
+    description("Create new microservice")
+    group("Microservices")
+    
+    doFirst {
+        println "TODO: Create new microservice"
+    }
+}

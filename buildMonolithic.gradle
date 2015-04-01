@@ -1,0 +1,8 @@
+task buildMono {
+    description("Build monolithic WAR")
+    group("Monolithic")
+    
+    doFirst {
+        println "TODO: Building monolithic WAR"
+    }
+}

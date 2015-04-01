@@ -1,3 +1,6 @@
+apply from: 'buildMicroservices.gradle'
+apply from: 'buildMonolithic.gradle'
+
 subprojects {
     apply plugin: 'java'
 	apply plugin: "war"
@@ -68,30 +71,4 @@ subprojects {
 
 
 
-}
-
-
-//
-// Microservices
-//
-task buildMS {
-    description("Build microservices")
-    group("Microservices")
-    
-    doFirst {
-        println "Building Microservices"
-    }
-}
-
-
-//
-// Monolithic
-//
-task buildMono {
-    description("Build monolithic WAR")
-    group("Monolithic")
-    
-    doFirst {
-        println "Building monolithic WAR"
-    }
 }
