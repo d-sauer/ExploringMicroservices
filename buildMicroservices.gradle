@@ -1,4 +1,4 @@
-task buildMS {
+task buildMic {
     description("Build microservices")
     group("Microservices")
     
@@ -7,7 +7,7 @@ task buildMS {
     }
 }
 
-task listMS {
+task listMic {
     description("List microservices inside project")
     group("Microservices")
     
@@ -16,11 +16,20 @@ task listMS {
     }
 }
 
-task createMS {
+task createMic {
     description("Create new microservice")
     group("Microservices")
     
     doFirst {
         println "TODO: Create new microservice"
+    }
+}
+
+task runMic {
+    description("Run all or given microservices, each on different port")
+    group("Microservices")
+    
+    doFirst {
+        println "TODO: bootRun microservices on different ports"
     }
 }
