@@ -65,19 +65,25 @@ public class Microservice extends SpringBootServletInitializer implements WebApp
     
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        log.info("Servlet STARTUP context {}", servletContext.getContextPath());
-        super.onStartup(servletContext);
+        ApplicationContext parent = getExistingRootWebApplicationContext(servletContext);
+        if (parent == null) {
+            log.info("Servlet STARTUP context {}", servletContext.getContextPath());
+            super.onStartup(servletContext);
+        }
     }
     
     @Override
     protected WebApplicationContext createRootApplicationContext(ServletContext servletContext) {
         ApplicationContext parent = getExistingRootWebApplicationContext(servletContext);
+        
         if (parent == null) {
             log.trace("Create root application context");
             return super.createRootApplicationContext(servletContext);
         }
+
         return null;
     }
+
     
     private ApplicationContext getExistingRootWebApplicationContext(ServletContext servletContext) {
         Object context = servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);

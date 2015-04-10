@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 @ComponentScan(basePackageClasses = { ms.monolithic.MonolithicConfiguration.class })
 public class MonolithicConfiguration implements Logger {
 
+    
     @PostConstruct
     private void postConstruct() {
         trace("Register monolithic configuration");
