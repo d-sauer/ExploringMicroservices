@@ -1,16 +1,15 @@
 subprojects {
 	dependencies {
-	   def spring_boot_version = '1.2.2.RELEASE'
 	    // Spring-Boot
-	    compile (group: "org.springframework.boot", name:"spring-boot-starter-web", version: spring_boot_version) {
+	    compile (group: "org.springframework.boot", name:"spring-boot-starter-web", version: springBootVersion) {
 	        exclude module: "spring-boot-starter-tomcat" // Don't use Tomcat as default container
 	    }
-	    compile( group: "org.springframework.boot", name: "spring-boot-autoconfigure", version: spring_boot_version)   
-	    compile( group: "org.springframework.boot", name: "spring-boot-starter-actuator", version: spring_boot_version)
+	    compile( group: "org.springframework.boot", name: "spring-boot-autoconfigure", version: springBootVersion)   
+	    compile( group: "org.springframework.boot", name: "spring-boot-starter-actuator", version: springBootVersion)
 
-	    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+	    providedCompile 'javax.servlet:javax.servlet-api:' + javaxServletApiVersion
 	
-        compile "org.springframework:spring-context:+"
+        compile "org.springframework:spring-context:" + springVersion
 	
 	    // Provided container
 	    //providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")

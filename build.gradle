@@ -15,16 +15,28 @@ subprojects {
        mavenCentral()
     }
 
+    //
+    // Define project library versions
+    //
+    ext {
+        springVersion = "4.1.6.RELEASE"
+        springBootVersion = "1.2.3.RELEASE"
+        junitVersion = "4.11"
+        jacksonCoreVersion = "2.5.2"
+        javaxServletApiVersion = "3.1.0"
+    }
+
     dependencies {
-        compile 'com.fasterxml.jackson.core:jackson-core:+'
-        compile 'com.fasterxml.jackson.core:jackson-databind:+'
+        compile 'com.fasterxml.jackson.core:jackson-core:' + jacksonCoreVersion
+        compile 'com.fasterxml.jackson.core:jackson-databind:' + jacksonCoreVersion
         
-        testCompile 'junit:junit:4.11'
+        testCompile 'junit:junit:' + junitVersion
     }
 
 	processResources {
-	    expand(project.properties)
+	    expand project.properties
 	}
+
 
     ext.sharedManifest = manifest {
             attributes('provider' : 'gradle',
@@ -36,6 +48,7 @@ subprojects {
 			           'Source-Compatibility': project.sourceCompatibility,
 			           'Target-Compatibility': project.targetCompatibility)
     }
+    
 
     jar {
         manifest = project.manifest {

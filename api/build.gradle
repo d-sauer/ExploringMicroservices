@@ -1,12 +1,10 @@
 // Inherit from root project
-def spring_boot_version = '1.2.2.RELEASE'
-
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE")
+        classpath(group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: springBootVersion)
     }
 }
 
@@ -16,12 +14,11 @@ dependencies {
     compile project (':commons')
     
 	// Library dependencies    
-	compile "org.springframework.boot:spring-boot:+"
-	compile "org.springframework.boot:spring-boot-autoconfigure:+"
-	//compile "com.fasterxml.jackson.core:jackson-databind:+"
-	compile "org.springframework:spring-core:+"
-	compile "org.springframework:spring-context:+"
-	compile "org.springframework:spring-web:+"
+	compile "org.springframework.boot:spring-boot:" + springBootVersion
+	compile "org.springframework.boot:spring-boot-autoconfigure:" + springBootVersion
+	compile "org.springframework:spring-core:" + springVersion
+	compile "org.springframework:spring-context:" + springVersion
+	compile "org.springframework:spring-web:" + springVersion
 	
-    compile 'javax.servlet:javax.servlet-api:3.1.0'
+    compile 'javax.servlet:javax.servlet-api:' + javaxServletApiVersion
 }

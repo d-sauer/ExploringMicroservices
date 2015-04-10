@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $# -gt 2 ]; then
+if [ $# -gt 1 ]; then
 	#Check URLs
 	for t_url in "${@:2}"
 	do
