@@ -2,6 +2,8 @@ package ms.services.calculator.rest;
 
 import java.text.ParseException;
 
+import javax.annotation.PostConstruct;
+
 import ms.commons.logging.Logger;
 import ms.services.calculator.dto.Result;
 
@@ -16,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorController implements Logger {
 
+    @PostConstruct
+    private void postConstruct() {
+        trace("Register calculator controller");
+    }
+    
     @RequestMapping(value = "/calculate",params = {"expression"}, method = { RequestMethod.GET }, produces = { "application/json" })
     public Result calculate(@RequestParam String expression) {
         info("Calculating equation: {}", expression);
