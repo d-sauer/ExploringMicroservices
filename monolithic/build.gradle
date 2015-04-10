@@ -1,0 +1,46 @@
+apply plugin: 'spring-boot'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: springBootVersion)
+    }
+}
+
+dependencies {
+    // Include all necesarry dependencies for monolithic build
+    compile project (':api')
+    compile project (':commons')
+
+
+    compile project (':services:calculator')
+    compile project (':services:time')
+    
+    // Spring-Boot
+    compile (group: "org.springframework.boot", name:"spring-boot-starter-web", version: springBootVersion) {
+        exclude module: "spring-boot-starter-tomcat" // Don't use Tomcat as default container
+    }
+    compile( group: "org.springframework.boot", name: "spring-boot-autoconfigure", version: springBootVersion)   
+    compile( group: "org.springframework.boot", name: "spring-boot-starter-actuator", version: springBootVersion)
+
+    providedCompile 'javax.servlet:javax.servlet-api:' + javaxServletApiVersion
+
+    // Provided container
+    //providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    providedRuntime("org.springframework.boot:spring-boot-starter-jetty")
+}
+
+jar {
+    manifest = project.manifest {
+        from sharedManifest
+    }
+}
+
+
+war {
+    manifest = project.manifest {
+        from sharedManifest
+    }
+}
