@@ -69,7 +69,7 @@ public class Microservice extends SpringBootServletInitializer implements WebApp
         if (parent == null) {
             log.info("Servlet STARTUP context {}", servletContext.getContextPath());
             super.onStartup(servletContext);
-        }
+        } 
     }
     
     @Override
@@ -80,7 +80,7 @@ public class Microservice extends SpringBootServletInitializer implements WebApp
             log.trace("Create root application context");
             return super.createRootApplicationContext(servletContext);
         }
-
+        
         return null;
     }
 
