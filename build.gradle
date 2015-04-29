@@ -29,7 +29,7 @@ subprojects {
     dependencies {
         compile 'com.fasterxml.jackson.core:jackson-core:' + jacksonCoreVersion
         compile 'com.fasterxml.jackson.core:jackson-databind:' + jacksonCoreVersion
-        
+
         testCompile 'junit:junit:' + junitVersion
     }
 
@@ -40,7 +40,7 @@ subprojects {
 
     ext.sharedManifest = manifest {
             attributes('provider' : 'gradle',
-                       'Implementation-Title': project.name, 
+                       'Implementation-Title': project.name,
                        'Implementation-Version': project.version,
                        'Build-By': System.getProperty('user.name'),
                        'Build-JDK': System.getProperty('java.version'),
@@ -48,7 +48,7 @@ subprojects {
 			           'Source-Compatibility': project.sourceCompatibility,
 			           'Target-Compatibility': project.targetCompatibility)
     }
-    
+
 
     jar {
         manifest = project.manifest {
@@ -73,15 +73,16 @@ subprojects {
 	       downloadJavadoc=true
 	    }
 	}
-	
+
 	idea {
 	    module {
 	        downloadJavadoc = true
 	        downloadSources = true
         }
-    }   
+    }
 
-
-
+    task wrapper(type: Wrapper) {
+        gradleVersion = '2.3'
+    }
 
 }

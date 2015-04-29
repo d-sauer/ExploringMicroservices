@@ -1,11 +1,5 @@
 package ms.api.service;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -16,6 +10,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.WebApplicationContext;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Extends this class to enable deploying (WAR, EAR) to another servlet container (Tomcat, WebSphere, GlassFish, etc.). 
@@ -30,11 +29,10 @@ import org.springframework.web.context.WebApplicationContext;
 public class Microservice extends SpringBootServletInitializer implements WebApplicationInitializer {
 
     private static final Logger log = LoggerFactory.getLogger(Microservice.class);
-    
+
     public static ApplicationContext run(Class<?> clazz, String... args) {
         SpringApplicationBuilder appBuilder = build(clazz);
         ApplicationContext appCtx = appBuilder.run(args);
-        
         // List only beans from project scope, only from 'ms.*' package
         if (log.isTraceEnabled()) {
             Arrays.asList(appCtx.getBeanDefinitionNames())
@@ -45,7 +43,7 @@ public class Microservice extends SpringBootServletInitializer implements WebApp
         }
 
         log.info("Bean count: {}", appCtx.getBeanDefinitionCount());
-        
+
         return appCtx;
     }
 
@@ -53,16 +51,13 @@ public class Microservice extends SpringBootServletInitializer implements WebApp
         log.trace("Build application");
         SpringApplicationBuilder appBuilder = new SpringApplicationBuilder();
         if (clazz != Microservice.class) {
-            log.trace("Register {}", Microservice.class);
             appBuilder.sources(Microservice.class);
         }
-        
-        log.trace("Register {}", clazz);
         appBuilder.sources(clazz);
-        
+
         return appBuilder;
     }
-    
+
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         ApplicationContext parent = getExistingRootWebApplicationContext(servletContext);
@@ -74,6 +69,7 @@ public class Microservice extends SpringBootServletInitializer implements WebApp
     
     @Override
     protected WebApplicationContext createRootApplicationContext(ServletContext servletContext) {
+        log.trace("createRootApplicationContext");
         ApplicationContext parent = getExistingRootWebApplicationContext(servletContext);
         
         if (parent == null) {
@@ -92,5 +88,5 @@ public class Microservice extends SpringBootServletInitializer implements WebApp
         }
         return null;
     }
-    
+
 }
