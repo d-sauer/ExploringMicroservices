@@ -1,1 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.api.service.discover.DiscoverConfiguration
+# Used with @EnableCXP annotation
+#  org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.api.service.autoconfigure.CxpAutoConfiguration
