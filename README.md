@@ -21,22 +21,12 @@ Each service has _Applicatio.java_ in the root package with _main_ method to run
 ## How to create new microservices
 + All microservices are located in **services** folder.
 + All microservices have:
-   - Application.java in root package which extends _ms.api.service.Microservice_
-   
-```
-package ms.services.time;
-import ms.api.service.Microservice;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+   - Application.java
+   - To enable CXP nature, add @EnableCXP annotation to Application class, or any other @Configuration class   
 
-@SpringBootApplication
-public class Application extends Microservice {
-    public static void main(String [] args) {
-        Microservice.run(Application.class, args);
-    }
-}
-```
 
   - AppConfiguration.java in root package. Used to expose microservice configuration when is packed with other microservices as monolith WAR.
+    This file is references under META-INF/spring.factories
 
 ```
 package ms.services.time;
@@ -50,6 +40,12 @@ public class AppConfiguration {
 // list of used beans
 }
 ```
+
+Example of spring.factories
+```
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.monolithic.MonolithicConfiguration
+```
+
 
 - Register configuration that can be discoverable when microservices is packed in JAR.
 Create file in project folder: _src/main/resources/META-INF/spring.factories_. 
@@ -87,6 +83,6 @@ $gradle war
 
 ## ToDo
 - simplify develpment
-  - remove Microservice extends, and use @EnableCXP (Check Spring-JMS as example @EnableJms)
+  + remove Microservice extends, and use @EnableCXP (Check Spring-JMS as example @EnableJms)
 - add support for YAML configuration
 - datasource
