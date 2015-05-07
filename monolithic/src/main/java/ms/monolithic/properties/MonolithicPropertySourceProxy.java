@@ -50,6 +50,23 @@ public class MonolithicPropertySourceProxy extends PropertySource implements Log
     }
 
     @Override
+    public boolean containsProperty(String name) {
+        boolean containsProperty = false;
+        if (name != null) {
+            int index = name.indexOf("|");
+            if (index != -1) {
+                String newName = name.substring(index + 1);
+                containsProperty = propertySource.containsProperty(name);
+            }
+        }
+
+        if (containsProperty == false)
+            containsProperty = propertySource.containsProperty(name);
+
+        return containsProperty;
+    }
+
+    @Override
     public String toString() {
         return getName();
     }
