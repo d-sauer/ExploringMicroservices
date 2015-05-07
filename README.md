@@ -82,9 +82,11 @@ $gradle war
   - time
 
 
-# Roadmap (todo)
-+ Build monolithic WAR
-  - Build monolithic WAR that contains all microservices in the project.
-   - Create application.properties which can be overridden from from parent structure. And be able to manage each service independently from the parent folder.
-   - Create service which uses two different database resource, and pack those two services in monolithic build, and manage used database of those two services.
+## Features
+- Add support for nesting properties file inside monolithic build with microservice namespace. Support to target specific property value for specific micorservice
 
+## ToDo
+- simplify develpment
+  - remove Microservice extends, and use @EnableCXP (Check Spring-JMS as example @EnableJms)
+- add support for YAML configuration
+- datasource

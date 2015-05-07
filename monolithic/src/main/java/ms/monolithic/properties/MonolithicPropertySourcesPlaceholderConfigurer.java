@@ -61,7 +61,7 @@ public class MonolithicPropertySourcesPlaceholderConfigurer extends PropertySour
 
     @Override
     public PropertySources getAppliedPropertySources() throws IllegalStateException {
-        MutablePropertySources mps = new MutablePropertySources();
+        final MutablePropertySources mps = new MutablePropertySources();
         final HashMap<String, Set<String>> propertyNameInMicroservices = new HashMap<>();
 
         final List<JarPropertiesPropertySource> jppsl = new ArrayList<>();
