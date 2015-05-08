@@ -1,5 +1,6 @@
 package ms.monolithic;
 
+import ms.api.service.EnableCxp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @SpringBootApplication
 @ComponentScan(basePackageClasses = { ms.monolithic.MonolithicConfiguration.class })
+@EnableCxp
 public class MonolithicApplication extends SpringBootServletInitializer implements WebApplicationInitializer {
 
     private static final Logger log = LoggerFactory.getLogger(MonolithicApplication.class);

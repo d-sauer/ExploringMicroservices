@@ -12,13 +12,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableCxp
-@EnableSwagger2
 public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
     public static void main(String [] args) {
-        log.debug("Time application");
+        log.debug("Calculator application");
         SpringApplication.run(Application.class, args);
     }
 
