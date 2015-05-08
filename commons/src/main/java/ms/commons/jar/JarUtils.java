@@ -79,6 +79,7 @@ public class JarUtils {
     public static Properties getPropertyFile(JarDetail detail, String fileName) throws IOException {
         JarFile jar = new JarFile(detail.getPath());
         JarEntry file = jar.getJarEntry(fileName);
+
         Properties prop = new Properties();
         prop.load(jar.getInputStream(file));
 
@@ -89,6 +90,20 @@ public class JarUtils {
         JarFile jar = new JarFile(detail.getPath());
         JarEntry file = jar.getJarEntry(fileName);
         return jar.getInputStream(file);
+    }
+
+    public static boolean exists(JarDetail detail, String fileName) {
+        JarFile jar = null;
+        try {
+            jar = new JarFile(detail.getPath());
+            JarEntry file = jar.getJarEntry(fileName);
+            if (file != null)
+                return true;
+        } catch (IOException e) {
+            return false;
+        }
+
+        return false;
     }
 
 }
