@@ -1,0 +1,4 @@
+# Service
+service:
+    name: Calculator service
+    property1: Calculator property in resources/application.properties

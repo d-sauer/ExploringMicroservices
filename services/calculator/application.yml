@@ -1,0 +1,7 @@
+# Default application port
+#management:
+#    port:8080
+
+# Service properties
+service:
+    property1: Calculator property in calculator project

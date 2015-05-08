@@ -1,0 +1,7 @@
+# Default application port
+server:
+    port: 8090
+
+# Service properties
+service:
+    property2: Time property in JAR root

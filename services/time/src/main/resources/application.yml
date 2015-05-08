@@ -1,0 +1,18 @@
+security:
+    basic:
+        enabled: false
+token:
+    secret: test
+
+
+# -- Actuator --
+# Info
+info:
+    build:
+        name: Time microservice
+
+#
+# Service
+service:
+    name: Time service
+    property1: Time property in resources/application.properties

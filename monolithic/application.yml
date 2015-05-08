@@ -1,0 +1,19 @@
+# Default application port
+#server:
+#    port: 8090
+
+# Service properties
+service:
+    property2: Monolithic property in project root
+
+time:
+    service:
+        property3: Time property from Monolithic properties
+
+calculator:
+    service:
+        property3: Calculator property from Monolithic properties
+        property2: Calculator property from Monolithic project root
+
+custom:
+    property3: Monolithic custom property in project root

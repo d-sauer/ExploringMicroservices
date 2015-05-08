@@ -1,0 +1,25 @@
+security:
+  basic:
+    enabled: false
+
+token:
+  secret: test
+
+#
+# -- Actuator --
+# Info
+info:
+  build:
+    name: Monolithic build
+
+service:
+  property2 : Monolithic property in /resources/application.properties
+
+time|:
+  service:
+    property2: Monolithic TIME property in /resources/application.properties
+
+custom:
+  property2: Monolithic custom property in /resources/application.properties
+
+
