@@ -4,6 +4,7 @@ import ms.api.service.discover.rest.DiscoverController;
 import ms.commons.logging.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import javax.annotation.PostConstruct;
 
@@ -11,6 +12,7 @@ import javax.annotation.PostConstruct;
  * Created by davor on 07/05/15.
  */
 @Configuration
+@Import(SwaggerConfig.class)
 public class CxpAutoConfiguration implements Logger {
 
     @PostConstruct

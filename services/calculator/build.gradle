@@ -18,8 +18,4 @@ dependencies {
     
     // Microservice dependencies
     compile 'org.jdice:jcalc:0.4b'
-
-    // Swagger (from jcenter)
-    compile "io.springfox:springfox-swagger2:2.0.0"
-    compile 'io.springfox:springfox-swagger-ui:2.0.0'
 }
