@@ -4,6 +4,8 @@ import java.text.ParseException;
 
 import javax.annotation.PostConstruct;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import ms.commons.logging.Logger;
 import ms.services.calculator.dto.Result;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(value = "Calculate", description = "API that provide calculation using expression query. e.g. /calculate?expression=3-4/2")
 @RestController
 public class CalculatorController implements Logger {
 
@@ -22,8 +25,9 @@ public class CalculatorController implements Logger {
     private void postConstruct() {
         trace("Register calculator controller");
     }
-    
-    @RequestMapping(value = "/calculate",params = {"expression"}, method = { RequestMethod.GET }, produces = { "application/json" })
+
+    @ApiOperation(value = "Calculate expression", notes = "Calculate expression by url encoded expression")
+    @RequestMapping(value = "/calculate", method = {RequestMethod.GET}, produces = {"application/json"})
     public Result calculate(@RequestParam String expression) {
         info("Calculating equation: {}", expression);
         Result result = new Result();
@@ -35,13 +39,8 @@ public class CalculatorController implements Logger {
         } catch (CalculatorException | ParseException ce) {
             error("Error during calculation", ce);
         }
-        
+
         return result;
     }
 
-    @RequestMapping(value = "/calculate")
-    public String calculate() {
-        return "To calculate equation use url: /calculate?expression=&lt;math expression&gt;";
-    }
-    
 }
