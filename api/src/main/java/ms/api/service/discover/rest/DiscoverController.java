@@ -3,7 +3,7 @@ package ms.api.service.discover.rest;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 
-import ms.api.service.ServiceType;
+import ms.api.service.build.ServiceBuildType;
 import ms.api.service.discover.dto.DiscoverData;
 import ms.commons.logging.Logger;
 
@@ -19,14 +19,14 @@ public class DiscoverController implements Logger {
     private ServletContext servletContext;
     
     @Autowired(required = false)
-    private ServiceType serviceType;
+    private ServiceBuildType serviceBuildType;
     
     private DiscoverData discoverData;
     
     @PostConstruct
     private void postConstruct() {
         trace("Register discover controller");
-        discoverData = new DiscoverData(servletContext, serviceType);
+        discoverData = new DiscoverData(servletContext, serviceBuildType);
     }
     
     @RequestMapping

@@ -9,8 +9,8 @@ import java.util.jar.JarFile;
 
 import javax.servlet.ServletContext;
 
-import ms.api.service.ServiceType;
-import ms.api.service.ServiceType.BuildType;
+import ms.api.service.build.ServiceBuildType;
+import ms.api.service.build.BuildType;
 import ms.commons.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -36,12 +36,12 @@ public class DiscoverData implements Logger {
     @JsonProperty("manifest")
     public HashMap<String, String> manifestFile = new HashMap<>();
 
-    public DiscoverData(ServletContext servletContext, ServiceType serviceType) {
+    public DiscoverData(ServletContext servletContext, ServiceBuildType serviceBuildType) {
         if (servletContext != null) {
             servletInfo = servletContext.getServerInfo();
 
             loadManifest(servletContext);
-            loadBuildType(serviceType);
+            loadBuildType(serviceBuildType);
         }
 
     }
@@ -71,9 +71,9 @@ public class DiscoverData implements Logger {
         }
     }
 
-    private void loadBuildType(ServiceType serviceType) {
-        if (serviceType != null) {
-            buildType = serviceType.getBuildType();
+    private void loadBuildType(ServiceBuildType serviceBuildType) {
+        if (serviceBuildType != null) {
+            buildType = serviceBuildType.getBuildType();
         }
     }
 

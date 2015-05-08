@@ -1,8 +1,8 @@
 package ms.monolithic;
 
-import ms.api.service.ServiceType;
+import ms.api.service.build.ServiceBuildType;
 import ms.commons.logging.Logger;
-import ms.monolithic.impl.ServiceTypeImpl;
+import ms.monolithic.impl.ServiceBuildTypeImpl;
 import ms.monolithic.processor.MonolithicBeanPostProcessor;
 import ms.monolithic.properties.MonolithicPropertySourcesPlaceholderConfigurer;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -24,9 +24,9 @@ public class MonolithicConfiguration implements Logger {
     }
 
     @Bean
-    public ServiceType serviceType() {
-        trace("Register Bean {}", ServiceTypeImpl.class.getName());
-        return new ServiceTypeImpl();
+    public ServiceBuildType serviceType() {
+        trace("Register Bean {}", ServiceBuildTypeImpl.class.getName());
+        return new ServiceBuildTypeImpl();
     }
 
     @Bean
