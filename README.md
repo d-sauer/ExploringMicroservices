@@ -78,11 +78,20 @@ $gradle war
   - time
 
 
+# HowTo
+
+## Enable CXP nature
+For enabling CXP nature we simply need to add ```@EnableCXP``` annotation to our start up class.
+
+## Swagger integration
+By enabling CXP nature with ```@EnableCXP``` there is also Swagger integration for automate documenting RESTfull API.
+To access Swagger you can check this URL's: http://localhost:8080/swagger-ui.html and http://localhost:8080/v2/api-docs/
+ 
 ## Features
 - Add support for nesting properties file inside monolithic build with microservice namespace. Support to target specific property value for specific micorservice
 
 ## ToDo
-- simplify develpment
++ simplify develpment
   + remove Microservice extends, and use @EnableCXP (Check Spring-JMS as example @EnableJms)
 - add support for YAML configuration
 - datasource

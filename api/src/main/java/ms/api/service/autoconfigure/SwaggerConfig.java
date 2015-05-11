@@ -11,8 +11,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import javax.annotation.PostConstruct;
 
 /**
+ *
  * Swagger UI: http://localhost:8080/swagger-ui.html
  * Swagger REST: http://localhost:8080/v2/api-docs/
+ *
+ * https://github.com/springfox/springfox
+ * https://github.com/swagger-api/swagger-ui
  *
  * Created by davor on 08/05/15.
  */
