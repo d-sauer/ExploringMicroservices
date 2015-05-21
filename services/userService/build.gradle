@@ -1,0 +1,15 @@
+// Inherit from parent project
+
+version = '0.0.2'
+description = "Example of user catalog to show how to use data source."
+
+bootRun {
+    applicationDefaultJvmArgs = ["-Dapi.discover.name=" + project.name, "-Dapi.discover.version=" + project.version, "-Dapi.discover.description=" + project.description]
+}
+
+dependencies {
+    // Project dependencies
+    compile project(':commons')
+    compile project(':api')
+
+}
