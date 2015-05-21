@@ -5,6 +5,7 @@ import javax.servlet.ServletContext;
 
 import ms.api.service.build.ServiceBuildType;
 import ms.api.service.discover.dto.DiscoverData;
+import ms.api.service.discover.properties.ApiDiscoverProperties;
 import ms.commons.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +18,19 @@ public class DiscoverController implements Logger {
 
     @Autowired
     private ServletContext servletContext;
-    
+
     @Autowired(required = false)
     private ServiceBuildType serviceBuildType;
+
+    @Autowired
+    private ApiDiscoverProperties apiDiscoverProperties;
     
     private DiscoverData discoverData;
     
     @PostConstruct
     private void postConstruct() {
         trace("Register discover controller");
-        discoverData = new DiscoverData(servletContext, serviceBuildType);
+        discoverData = new DiscoverData(servletContext, serviceBuildType, apiDiscoverProperties);
     }
     
     @RequestMapping
