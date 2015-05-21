@@ -9,6 +9,8 @@ subprojects {
 
 
     version = '0.0.1'
+    description = "Exploring microservices"
+
     sourceCompatibility = 1.8
 
     repositories {
@@ -43,13 +45,13 @@ subprojects {
             attributes('provider' : 'gradle',
                        'Implementation-Title': project.name,
                        'Implementation-Version': project.version,
+                       'Implementation-Description': project.description,
                        'Build-By': System.getProperty('user.name'),
                        'Build-JDK': System.getProperty('java.version'),
                        'Build-Time': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
 			           'Source-Compatibility': project.sourceCompatibility,
 			           'Target-Compatibility': project.targetCompatibility)
     }
-
 
     jar {
         manifest = project.manifest {
@@ -83,7 +85,7 @@ subprojects {
     }
 
     task wrapper(type: Wrapper) {
-        gradleVersion = '2.3'
+        gradleVersion = '2.4'
     }
 
 }

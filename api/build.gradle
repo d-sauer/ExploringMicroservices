@@ -8,7 +8,6 @@ buildscript {
     }
 }
 
-
 dependencies {
     // Project dependencies
     compile project (':commons')

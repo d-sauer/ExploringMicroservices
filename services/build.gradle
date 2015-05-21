@@ -1,4 +1,15 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath(group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: springBootVersion)
+	}
+}
+
 subprojects {
+	apply plugin: 'spring-boot'
+
 	dependencies {
 	    // Spring-Boot
 	    compile (group: "org.springframework.boot", name:"spring-boot-starter-web", version: springBootVersion) {
@@ -15,4 +26,5 @@ subprojects {
 	    //providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 	    providedRuntime("org.springframework.boot:spring-boot-starter-jetty")
 	}
+
 }

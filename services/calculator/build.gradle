@@ -1,14 +1,6 @@
-// Inherit from root project
-
-apply plugin: 'spring-boot'
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath(group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: springBootVersion)
-    }
+// Inherit from parent project
+bootRun {
+    applicationDefaultJvmArgs = ["-Dapi.discover.name=" + project.name, "-Dapi.discover.version=" + project.version, "-Dapi.discover.description=" + project.description]
 }
 
 dependencies {
