@@ -10,6 +10,12 @@ buildscript {
 subprojects {
 	apply plugin: 'spring-boot'
 
+    bootRun {
+        if ( project.hasProperty('args') ) {
+            args project.args.split('\\s+')
+        }
+    }
+
 	dependencies {
 	    // Spring-Boot
 	    compile (group: "org.springframework.boot", name:"spring-boot-starter-web", version: springBootVersion) {
