@@ -4,8 +4,9 @@ import java.lang.annotation.*;
 
 /**
  * Created by davor on 24/04/15.
+ * @see ms.api.service.util.MicroserviceNamespaceUtils
  */
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface MicroserviceNamespace {
