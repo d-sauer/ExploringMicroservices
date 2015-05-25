@@ -1,0 +1,16 @@
+// Inherit from parent project
+
+description = "Example how to use two datasources for bank management and auditlog"
+
+bootRun {
+    applicationDefaultJvmArgs = ["-Dapi.discover.name=" + project.name, "-Dapi.discover.version=" + project.version, "-Dapi.discover.description=" + project.description]
+}
+
+dependencies {
+    // Project dependencies
+    compile project(':commons')
+    compile project(':api')
+
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:' + springBootVersion
+    compile 'com.h2database:h2:1.4.187'
+}
