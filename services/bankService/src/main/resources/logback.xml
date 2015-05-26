@@ -1,21 +1,14 @@
 <configuration>
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-		<withJansi>true</withJansi>
-		<encoder>
-			<pattern>%d{dd.mm.yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} | %msg%n</pattern>
-		</encoder>
-	</appender>
-
-	<!-- Enable JMX Management -->
-	<jmxConfigurator />
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
 
 <!-- 	<logger name="org.springframework" level="INFO" /> -->
 <!-- 	<logger name="org.springframework.beans" level="DEBUG" /> -->
 
-	<logger name="ms" level="TRACE" />
 
 	<!-- Show Hibernate query values-->
 	<!--<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />-->
+
+	<logger name="ms" level="TRACE" />
 
 	<root level="WARN">
 		<appender-ref ref="console" />
