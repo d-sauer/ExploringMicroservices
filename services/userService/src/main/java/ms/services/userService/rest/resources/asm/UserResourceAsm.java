@@ -5,8 +5,6 @@ import ms.services.userService.rest.mvc.UserController;
 import ms.services.userService.rest.resources.UserResource;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
-
 /**
  * Created by davor on 22/05/15.
  */

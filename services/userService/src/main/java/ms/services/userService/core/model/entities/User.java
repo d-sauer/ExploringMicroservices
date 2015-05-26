@@ -1,7 +1,6 @@
 package ms.services.userService.core.model.entities;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,7 +21,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_address", joinColumns = @JoinColumn(name = "user_name"), inverseJoinColumns = @JoinColumn(name = "address_id"))
-    private Set<Address> addresses;
+    private Set<ms.services.userService.core.model.entities.Address> addresses;
 
     public User() {    }
 
