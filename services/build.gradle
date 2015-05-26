@@ -16,6 +16,12 @@ subprojects {
         }
     }
 
+	task info << {
+		println "Project name:" + project.name
+		println "     Version:" + project.version
+		println " Description:" + project.description
+	}
+
 	dependencies {
 	    // Spring-Boot
 	    compile (group: "org.springframework.boot", name:"spring-boot-starter-web", version: springBootVersion) {

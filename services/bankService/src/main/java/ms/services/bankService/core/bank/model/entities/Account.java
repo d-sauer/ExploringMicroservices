@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Created by davor on 25/05/15.
  */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"iban"}))
+//@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"iban"}))
 public class Account {
 
     @Id
@@ -17,6 +17,7 @@ public class Account {
     private String iban;
 
     private BigDecimal balance;
+
 
     public Long getId() {
         return id;
