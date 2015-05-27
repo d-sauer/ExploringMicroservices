@@ -14,8 +14,8 @@ public class Transaction {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.DETACH, targetEntity = Account.class)
-    private Long accountId;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    private Account accountId;
 
     private String destination;
 
@@ -34,11 +34,11 @@ public class Transaction {
         this.id = id;
     }
 
-    public Long getAccountId() {
+    public Account getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Long accountId) {
+    public void setAccountId(Account accountId) {
         this.accountId = accountId;
     }
 

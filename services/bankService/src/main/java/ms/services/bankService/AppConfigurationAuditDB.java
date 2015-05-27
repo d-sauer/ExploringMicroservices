@@ -1,8 +1,12 @@
 package ms.services.bankService;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import ms.api.service.util.database.DatabaseUtils;
+import ms.commons.logging.Logger;
+import ms.commons.pack.PackageUtils;
+import ms.api.service.util.database.BaseDataSourceProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -12,34 +16,36 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
  * Created by davor on 26/05/15.
  */
 @Configuration
-@EnableAutoConfiguration(exclude = JpaRepositoriesAutoConfiguration.class)
 @EnableJpaRepositories(
         entityManagerFactoryRef = "auditEntityManager",
         transactionManagerRef = "auditTransactionManager",
         basePackageClasses = { ms.services.bankService.core.audit.repositories.AuditRepository.class })
-public class AppConfigurationAuditDB {
+@EnableConfigurationProperties(AppConfigurationAuditDB.DataSourceAuditProperties.class)
+public class AppConfigurationAuditDB implements Logger {
+
+    @Autowired
+    private DataSourceAuditProperties auditProperties;
 
     @Bean(name = "auditEntityManager")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] {"ms.services.bankService.core.audit.model.entities"});
+        em.setDataSource(DatabaseUtils.createDataSource(auditProperties, this));
+        em.setPackagesToScan(PackageUtils.getPackageNames(ms.services.bankService.core.audit.model.entities.Audit.class));
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalJpaProperties());
-        em.setPersistenceUnitName("audits");
+        em.setPersistenceUnitName("auditPersistanceUnit");
 
         return em;
     }
 
-    Properties additionalJpaProperties(){
+    private Properties additionalJpaProperties(){
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
@@ -48,15 +54,6 @@ public class AppConfigurationAuditDB {
         return properties;
     }
 
-    @Bean
-    public DataSource dataSource(){
-        return DataSourceBuilder.create()
-                .url("jdbc:h2:file:~/.backbase/poc/cxp6/audit;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE")
-                .driverClassName("org.h2.Driver")
-                .username("sa")
-                .password("sa")
-                .build();
-    }
 
     @Bean(name = "auditTransactionManager")
     public JpaTransactionManager transactionManager(EntityManagerFactory auditEntityManager){
@@ -66,4 +63,6 @@ public class AppConfigurationAuditDB {
         return transactionManager;
     }
 
+    @ConfigurationProperties(prefix = "datasource.audit")
+    static class DataSourceAuditProperties extends BaseDataSourceProperties { }
 }

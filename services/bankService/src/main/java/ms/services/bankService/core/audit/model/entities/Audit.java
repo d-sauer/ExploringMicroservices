@@ -15,7 +15,9 @@ public class Audit {
     @GeneratedValue
     private Long id;
 
-    private Calendar datetime;
+    private Calendar start;
+
+    private Calendar end;
 
     private String type;
 
@@ -29,16 +31,24 @@ public class Audit {
         this.id = id;
     }
 
-    public Calendar getDatetime() {
-        return datetime;
+    public Calendar getStart() {
+        return start;
     }
 
-    public void setDatetime(Calendar datetime) {
-        this.datetime = datetime;
+    public void setStart(Calendar start) {
+        this.start = start;
     }
 
     public String getType() {
         return type;
+    }
+
+    public Calendar getEnd() {
+        return end;
+    }
+
+    public void setEnd(Calendar end) {
+        this.end = end;
     }
 
     public void setType(String type) {

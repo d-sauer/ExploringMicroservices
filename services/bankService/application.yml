@@ -2,16 +2,14 @@ datasource:
     bank:
         username: sa
         password: sa
-        driver-class-name: org.h2.Driver
+        driverClassName: org.h2.Driver
         url: jdbc:h2:file:~/.backbase/poc/cxp6/bankService;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
-        poolSize: 2
 
     audit:
         username: sa
         password: sa
-        driver-class-name: org.h2.Driver
+        driverClassName: org.h2.Driver
         url: jdbc:h2:file:~/.backbase/poc/cxp6/auditService;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
-        poolSize: 2
 
 spring:
     jpa:

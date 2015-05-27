@@ -1,0 +1,4 @@
+spring:
+    jpa:
+        # Necessary when we have multiple datasources
+        openInView: false
