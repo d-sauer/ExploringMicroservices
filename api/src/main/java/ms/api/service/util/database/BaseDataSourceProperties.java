@@ -1,11 +1,22 @@
 package ms.api.service.util.database;
 
+import ms.commons.properties.PropertyUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 import java.util.StringJoiner;
 
 /**
  * Created by davor on 27/05/15.
+ *
+ * @see BaseJpaDataSourceProperties
  */
 public class BaseDataSourceProperties {
+
+    @Autowired
+    private BaseJpaDataSourceProperties baseJpaProperties;
 
     private String username;
 
@@ -14,6 +25,8 @@ public class BaseDataSourceProperties {
     private String driverClassName;
 
     private String url;
+
+    private Map<String, Object> jpa = new HashMap<>();
 
     public String getUsername() {
         return username;
@@ -46,6 +59,47 @@ public class BaseDataSourceProperties {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    /**
+     * Merget JPA properties from 'sprin.jpa' and this property set under 'jpa' segment.
+
+     * <br/>
+     * <pre>
+     * spring:
+     *      jpa:
+     *          propertyA: valueA
+     *
+     * datasource:
+     *      customdatasource:
+     *          jpa:
+     *              propertyA: overridden_valueA
+     * </pre>
+     *
+     * @return
+     */
+    public Properties getJpaProperties() {
+        Map<String, Object> flatPropertiesMap = new HashMap<>();
+        // Flat spring.jpa properties
+        flatPropertiesMap.putAll(PropertyUtils.flatPropertiesMap(baseJpaProperties.getJpa()));
+
+        // Flat from 'jpa' segment
+        flatPropertiesMap.putAll(PropertyUtils.flatPropertiesMap(jpa));
+
+
+        Properties flatProperties = new Properties();
+        flatProperties.putAll(flatPropertiesMap);
+        return flatProperties;
+    }
+
+    public Map<String, Object> getJpa() {
+        return this.jpa;
+    }
+
+    public void setJpa(Map<String, Object> jpa) {
+        this.jpa = jpa;
+    }
+
+
 
     @Override
     public String toString() {

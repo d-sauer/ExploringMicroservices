@@ -1,9 +1,9 @@
 package ms.services.bankService;
 
+import ms.api.service.util.database.BaseDataSourceProperties;
 import ms.api.service.util.database.DatabaseUtils;
 import ms.commons.logging.Logger;
 import ms.commons.pack.PackageUtils;
-import ms.api.service.util.database.BaseDataSourceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,7 +23,7 @@ import java.util.Properties;
         entityManagerFactoryRef = "bankEntityManager",
         transactionManagerRef = "bankTransactionManager",
         basePackageClasses = { ms.services.bankService.core.bank.repositories.AccountRepository.class })
-@EnableConfigurationProperties(AppConfigurationBankDB.DataSourceBankProperties.class)
+@EnableConfigurationProperties( {AppConfigurationBankDB.DataSourceBankProperties.class})
 public class AppConfigurationBankDB implements Logger {
 
     @Autowired
@@ -32,23 +32,15 @@ public class AppConfigurationBankDB implements Logger {
     @Bean(name = "bankEntityManager")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(DatabaseUtils.createDataSource(bankProperties, this));
         em.setPackagesToScan(PackageUtils.getPackageNames(ms.services.bankService.core.bank.model.entities.Account.class));
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalJpaProperties());
+        em.setJpaProperties(bankProperties.getJpaProperties());
         em.setPersistenceUnitName("bankPersistanceUnit");
 
         return em;
-    }
-
-    private Properties additionalJpaProperties(){
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        properties.setProperty("hibernate.show_sql", "true");
-
-        return properties;
     }
 
     @Bean(name = "bankTransactionManager")

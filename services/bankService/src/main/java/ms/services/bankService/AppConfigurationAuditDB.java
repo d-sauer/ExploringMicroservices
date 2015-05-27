@@ -39,21 +39,11 @@ public class AppConfigurationAuditDB implements Logger {
         em.setDataSource(DatabaseUtils.createDataSource(auditProperties, this));
         em.setPackagesToScan(PackageUtils.getPackageNames(ms.services.bankService.core.audit.model.entities.Audit.class));
         em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalJpaProperties());
+        em.setJpaProperties(auditProperties.getJpaProperties());
         em.setPersistenceUnitName("auditPersistanceUnit");
 
         return em;
     }
-
-    private Properties additionalJpaProperties(){
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        properties.setProperty("hibernate.show_sql", "true");
-
-        return properties;
-    }
-
 
     @Bean(name = "auditTransactionManager")
     public JpaTransactionManager transactionManager(EntityManagerFactory auditEntityManager){
