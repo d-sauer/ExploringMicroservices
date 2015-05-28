@@ -1,7 +1,9 @@
 package ms.api.service.util.database;
 
+import ms.api.service.autoconfigure.database.BaseJpaDataSourceProperties;
 import ms.commons.properties.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +15,7 @@ import java.util.StringJoiner;
  *
  * @see BaseJpaDataSourceProperties
  */
+@DependsOn("BaseJpaDataSourceProperties")
 public class BaseDataSourceProperties {
 
     @Autowired

@@ -2,9 +2,10 @@ package ms.api.service.autoconfigure;
 
 import ms.api.service.discover.properties.ApiDiscoverProperties;
 import ms.api.service.discover.rest.DiscoverController;
-import ms.api.service.util.database.BaseJpaDataSourceProperties;
+import ms.api.service.autoconfigure.database.BaseJpaDataSourceProperties;
+import ms.api.service.util.database.BaseDataSourceProperties;
 import ms.commons.logging.Logger;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  * Created by davor on 07/05/15.
  */
 @Configuration
-@Import({SwaggerConfig.class, BaseJpaDataSourceProperties.class})
+@Import({SwaggerConfig.class})
 public class CxpAutoConfiguration implements Logger {
 
     @PostConstruct
@@ -34,5 +35,11 @@ public class CxpAutoConfiguration implements Logger {
         return new ApiDiscoverProperties();
     }
 
+    @Bean(name = "baseJpaDataSourceProperties")
+    @ConditionalOnBean(BaseDataSourceProperties.class)
+    public BaseJpaDataSourceProperties baseJpaDataSourceProperties() {
+        trace("BaseJpaDataSourceProperties from 'spring.jpa' property segment");
+        return new BaseJpaDataSourceProperties();
+    }
 
 }

@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackageClasses = { ms.services.bankService.AppConfigurationBankDB.class })
-//@EnableAutoConfiguration(exclude = JpaRepositoriesAutoConfiguration.class)
 public class AppConfiguration implements Logger {
 
 

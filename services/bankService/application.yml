@@ -7,7 +7,8 @@ datasource:
 
         #Override properties from 'spring.jpa'
         jpa:
-            show-sql: false
+            hibernate:
+                show_sql: false
 
     audit:
         username: sa
@@ -19,9 +20,9 @@ spring:
     jpa:
         generate-ddl: true
         database: H2
-        show-sql: true
         hibernate:
+            show_sql: true
             naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
             hbm2ddl:
-                auto: create-drop
+                auto: update
 

@@ -1,5 +1,6 @@
-package ms.api.service.util.database;
+package ms.api.service.autoconfigure.database;
 
+import ms.api.service.util.database.BaseDataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,7 +17,6 @@ import java.util.Map;
  *
  * @see ms.api.service.autoconfigure.CxpAutoConfiguration
  */
-@Configuration
 @ConfigurationProperties("spring")
 public class BaseJpaDataSourceProperties {
 

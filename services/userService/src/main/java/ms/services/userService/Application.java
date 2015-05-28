@@ -42,13 +42,13 @@ public class Application implements CommandLineRunner {
         log.trace("Console runner, args: {}", Arrays.asList(args));
 
         Arrays.asList(args).forEach(arg -> {
-            if (arg.equalsIgnoreCase("initDB")) {
-                initDB();
+            if (arg.equalsIgnoreCase("fillDB")) {
+                fillDb();
             }
         });
     }
 
-    private void initDB() {
+    private void fillDb() {
         User user1 = new User("davor", "pass", "Davor", "Sauer'");
         User user2 = new User("anita", "pass", "Anita", "Bendelja'");
         userRepository.save(user1);

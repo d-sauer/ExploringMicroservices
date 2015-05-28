@@ -1,7 +1,6 @@
 package ms.services.bankService;
 
 import ms.api.service.EnableCxp;
-import ms.commons.pack.PackageUtils;
 import ms.services.bankService.core.audit.model.entities.Audit;
 import ms.services.bankService.core.audit.repositories.AuditRepository;
 import ms.services.bankService.core.bank.model.entities.Account;
@@ -41,7 +40,7 @@ public class Application implements CommandLineRunner {
      * @param args
      */
     public static void main(String [] args) {
-        log.debug("bankService service ({})", PackageUtils.getPackageName(Application.class));
+        log.debug("bankService service");
         SpringApplication.run(Application.class, args);
     }
 
@@ -50,13 +49,15 @@ public class Application implements CommandLineRunner {
         log.trace("Console runner, args: {}", Arrays.asList(args));
 
         Arrays.asList(args).forEach(arg -> {
-            if (arg.equalsIgnoreCase("initDB")) {
-                initDB();
+            if (arg.equalsIgnoreCase("filldb")) {
+                fillDb();
             }
         });
     }
 
-    private void initDB() {
+    private void fillDb() {
+        log.info("Fill database....");
+
         Random rand = new Random();
 
         for(int accNo = 0; accNo <= 10; accNo++) {

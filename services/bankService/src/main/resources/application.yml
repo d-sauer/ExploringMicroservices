@@ -1,4 +1,4 @@
 spring:
     jpa:
-        # Necessary when we have multiple datasources
+        # Necessary when we have multiple datasources, otherwise we need to use @Primary annotation on one of data sources
         openInView: false

@@ -34,6 +34,8 @@ public class AppConfigurationAuditDB implements Logger {
 
     @Bean(name = "auditEntityManager")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+        trace("Audit JPA properties: {}", auditProperties.getJpaProperties());
+
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(DatabaseUtils.createDataSource(auditProperties, this));
