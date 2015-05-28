@@ -1,12 +1,14 @@
 package ms.services.userService.rest.resources;
 
+import ms.commons.logging.Logger;
+import ms.commons.util.ObjectUtils;
 import ms.services.userService.core.model.entities.Address;
 import org.springframework.hateoas.ResourceSupport;
 
 /**
  * Created by davor on 22/05/15.
  */
-public class AddressResource extends ResourceSupport {
+public class AddressResource extends ResourceSupport implements Logger {
 
     private String address;
 
@@ -20,7 +22,12 @@ public class AddressResource extends ResourceSupport {
 
     public Address toAddress() {
         Address address = new Address();
-        address.setAddress(this.address);
+
+        try {
+            ObjectUtils.mapValues(this, address);
+        } catch (Exception e) {
+            error("Can't map value", e);
+        }
 
         return address;
     }

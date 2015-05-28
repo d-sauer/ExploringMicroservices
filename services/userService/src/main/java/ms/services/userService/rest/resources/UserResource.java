@@ -1,13 +1,15 @@
 package ms.services.userService.rest.resources;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ms.commons.logging.Logger;
+import ms.commons.util.ObjectUtils;
 import ms.services.userService.core.model.entities.User;
 import org.springframework.hateoas.ResourceSupport;
 
 /**
  * Created by davor on 22/05/15.
  */
-public class UserResource extends ResourceSupport{
+public class UserResource extends ResourceSupport implements Logger {
 
     private String userName;
 
@@ -53,10 +55,12 @@ public class UserResource extends ResourceSupport{
 
     public User toUser() {
         User user = new User();
-        user.setUserName(userName);
-        user.setPassword(password);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
+
+        try {
+            ObjectUtils.mapValues(this, user);
+        } catch (Exception e) {
+            error("Can't map values", e);
+        }
 
         return user;
     }
