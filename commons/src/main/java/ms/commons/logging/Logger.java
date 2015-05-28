@@ -20,6 +20,7 @@ public interface Logger extends org.slf4j.Logger {
     /**
      * {@inheritDoc}
      */
+    @JsonIgnore
     default public String getName() {
         return logger().getName();
     }
