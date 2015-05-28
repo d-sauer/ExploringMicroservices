@@ -1,7 +1,7 @@
 package ms.api.service.util.database;
 
-import ms.api.service.autoconfigure.database.BaseJpaDataSourceProperties;
-import ms.commons.properties.PropertyUtils;
+import ms.api.service.autoconfig.database.BaseJpaDataSourceProperties;
+import ms.commons.util.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 

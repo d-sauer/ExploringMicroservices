@@ -1,4 +1,4 @@
-package ms.commons.properties;
+package ms.commons.util;
 
 import java.util.HashMap;
 import java.util.Map;

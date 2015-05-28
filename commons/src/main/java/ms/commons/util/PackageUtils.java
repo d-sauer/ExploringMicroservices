@@ -1,4 +1,4 @@
-package ms.commons.pack;
+package ms.commons.util;
 
 import java.util.HashSet;
 import java.util.Set;

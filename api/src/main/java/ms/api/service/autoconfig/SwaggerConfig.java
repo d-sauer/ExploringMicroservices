@@ -1,4 +1,4 @@
-package ms.api.service.autoconfigure;
+package ms.api.service.autoconfig;
 
 import ms.commons.logging.Logger;
 import org.springframework.context.annotation.Bean;

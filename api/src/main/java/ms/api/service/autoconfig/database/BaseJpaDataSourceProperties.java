@@ -1,8 +1,7 @@
-package ms.api.service.autoconfigure.database;
+package ms.api.service.autoconfig.database;
 
 import ms.api.service.util.database.BaseDataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +14,7 @@ import java.util.Map;
  * Generic replacement for {@link org.springframework.boot.autoconfigure.orm.jpa.JpaProperties}. <br/>
  * User in combination with {@link BaseDataSourceProperties}
  *
- * @see ms.api.service.autoconfigure.CxpAutoConfiguration
+ * @see ms.api.service.autoconfig.CxpAutoConfiguration
  */
 @ConfigurationProperties("spring")
 public class BaseJpaDataSourceProperties {

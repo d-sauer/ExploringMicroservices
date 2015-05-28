@@ -1,2 +1,2 @@
 # Used with @EnableCXP annotation
-#  org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.api.service.autoconfigure.CxpAutoConfiguration
+#  org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.api.service.autoconfig.CxpAutoConfiguration

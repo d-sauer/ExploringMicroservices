@@ -1,6 +1,6 @@
 package ms.api.service;
 
-import ms.api.service.autoconfigure.CxpAutoConfiguration;
+import ms.api.service.autoconfig.CxpAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;

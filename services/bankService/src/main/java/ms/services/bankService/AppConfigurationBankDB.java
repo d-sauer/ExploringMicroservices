@@ -3,13 +3,12 @@ package ms.services.bankService;
 import ms.api.service.util.database.BaseDataSourceProperties;
 import ms.api.service.util.database.DatabaseUtils;
 import ms.commons.logging.Logger;
-import ms.commons.pack.PackageUtils;
+import ms.commons.util.PackageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -17,7 +16,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(

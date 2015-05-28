@@ -1,8 +1,8 @@
-package ms.api.service.autoconfigure;
+package ms.api.service.autoconfig;
 
 import ms.api.service.discover.properties.ApiDiscoverProperties;
 import ms.api.service.discover.rest.DiscoverController;
-import ms.api.service.autoconfigure.database.BaseJpaDataSourceProperties;
+import ms.api.service.autoconfig.database.BaseJpaDataSourceProperties;
 import ms.api.service.util.database.BaseDataSourceProperties;
 import ms.commons.logging.Logger;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
