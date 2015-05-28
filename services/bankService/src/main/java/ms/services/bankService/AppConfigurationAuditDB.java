@@ -46,6 +46,7 @@ public class AppConfigurationAuditDB implements Logger {
         return em;
     }
 
+    //TODO Solve problem with multiple transaction managers (when some of services are anotated with @Transactional)
     @Bean(name = "auditTransactionManager")
     public JpaTransactionManager transactionManager(EntityManagerFactory auditEntityManager){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
