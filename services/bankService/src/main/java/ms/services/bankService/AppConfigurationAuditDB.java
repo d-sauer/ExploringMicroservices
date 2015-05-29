@@ -4,6 +4,8 @@ import ms.api.service.util.database.BaseDataSourceProperties;
 import ms.api.service.util.database.DatabaseUtils;
 import ms.commons.logging.Logger;
 import ms.commons.util.PackageUtils;
+import ms.services.bankService.core.audit.model.entities.Audit;
+import ms.services.bankService.core.audit.repositories.AuditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,7 +15,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -24,21 +25,23 @@ import javax.persistence.EntityManagerFactory;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "auditEntityManager",
         transactionManagerRef = "auditTransactionManager",
-        basePackageClasses = { ms.services.bankService.core.audit.repositories.AuditRepository.class })
+        basePackageClasses = { AuditRepository.class })
 @EnableConfigurationProperties(AppConfigurationAuditDB.DataSourceAuditProperties.class)
 public class AppConfigurationAuditDB implements Logger {
 
     @Autowired
     private DataSourceAuditProperties auditProperties;
 
+    @Autowired
+    private JpaVendorAdapter vendorAdapter;
+
     @Bean(name = "auditEntityManager")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         trace("Audit JPA properties: {}", auditProperties.getJpaProperties());
 
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(DatabaseUtils.createDataSource(auditProperties, this));
-        em.setPackagesToScan(PackageUtils.getPackageNames(ms.services.bankService.core.audit.model.entities.Audit.class));
+        em.setPackagesToScan(PackageUtils.getPackageNames(Audit.class));
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(auditProperties.getJpaProperties());
         em.setPersistenceUnitName("auditPersistanceUnit");

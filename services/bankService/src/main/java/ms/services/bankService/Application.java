@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.math.BigDecimal;
@@ -21,6 +23,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 @SpringBootApplication
+//@EnableAutoConfiguration(exclude = {DataSourceTransactionManagerAutoConfiguration.class})
 @EnableCxp
 public class Application implements CommandLineRunner {
 
