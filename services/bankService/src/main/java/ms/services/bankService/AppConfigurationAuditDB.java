@@ -1,9 +1,9 @@
 package ms.services.bankService;
 
+import ms.api.service.util.database.BaseDataSourceProperties;
 import ms.api.service.util.database.DatabaseUtils;
 import ms.commons.logging.Logger;
 import ms.commons.util.PackageUtils;
-import ms.api.service.util.database.BaseDataSourceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -46,7 +46,6 @@ public class AppConfigurationAuditDB implements Logger {
         return em;
     }
 
-    //TODO Solve problem with multiple transaction managers (when some of services are anotated with @Transactional)
     @Bean(name = "auditTransactionManager")
     public JpaTransactionManager transactionManager(EntityManagerFactory auditEntityManager){
         JpaTransactionManager transactionManager = new JpaTransactionManager();

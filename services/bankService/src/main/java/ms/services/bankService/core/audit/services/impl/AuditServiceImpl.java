@@ -5,14 +5,15 @@ import ms.services.bankService.core.audit.repositories.AuditRepository;
 import ms.services.bankService.core.audit.services.AuditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Created by davor on 28/05/15.
  */
 @Service
+@Transactional("auditTransactionManager")
 public class AuditServiceImpl implements AuditService {
 
     @Autowired

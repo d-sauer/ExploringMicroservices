@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -41,7 +42,9 @@ public class Application implements CommandLineRunner {
      */
     public static void main(String [] args) {
         log.debug("bankService service");
-        SpringApplication.run(Application.class, args);
+        ConfigurableApplicationContext cac = SpringApplication.run(Application.class, args);
+
+        log.debug("List of created beans: {}", Arrays.asList(cac.getBeanDefinitionNames()));
     }
 
     @Override
