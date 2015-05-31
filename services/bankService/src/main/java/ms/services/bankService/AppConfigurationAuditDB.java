@@ -15,46 +15,53 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
-/**
- * Created by davor on 26/05/15.
- */
 @Configuration
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "auditEntityManager",
+        entityManagerFactoryRef = "auditEntityManagerFactory",
         transactionManagerRef = "auditTransactionManager",
         basePackageClasses = { AuditRepository.class })
+@EnableTransactionManagement
 @EnableConfigurationProperties(AppConfigurationAuditDB.DataSourceAuditProperties.class)
 public class AppConfigurationAuditDB implements Logger {
 
     @Autowired
     private DataSourceAuditProperties auditProperties;
 
-    @Autowired
-    private JpaVendorAdapter vendorAdapter;
+    @Bean(name = "auditDataSource")
+    public DataSource auditDataSource() {
+        return DatabaseUtils.createDataSource(auditProperties, this);
+    }
 
     @Bean(name = "auditEntityManager")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-        trace("Audit JPA properties: {}", auditProperties.getJpaProperties());
+    public EntityManager entityManager() {
+        return entityManagerFactory().createEntityManager();
+    }
 
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(DatabaseUtils.createDataSource(auditProperties, this));
-        em.setPackagesToScan(PackageUtils.getPackageNames(Audit.class));
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(auditProperties.getJpaProperties());
-        em.setPersistenceUnitName("auditPersistanceUnit");
+    @Bean(name = "auditEntityManagerFactory")
+    public EntityManagerFactory entityManagerFactory() {
+        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
 
-        return em;
+        LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
+        lef.setDataSource(auditDataSource());
+        lef.setJpaVendorAdapter(jpaVendorAdapter);
+        lef.setPackagesToScan(PackageUtils.getPackageNames(Audit.class));
+        lef.setPersistenceUnitName("auditPersistanceUnit");
+        lef.setJpaProperties(auditProperties.getJpaProperties());
+        lef.afterPropertiesSet();
+        return lef.getObject();
     }
 
     @Bean(name = "auditTransactionManager")
-    public JpaTransactionManager transactionManager(EntityManagerFactory auditEntityManager){
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(auditEntityManager);
-
-        return transactionManager;
+    public PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager(entityManagerFactory());
     }
 
     @ConfigurationProperties(prefix = "datasource.audit")

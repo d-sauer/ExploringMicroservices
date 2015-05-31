@@ -15,43 +15,53 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "bankEntityManager",
+        entityManagerFactoryRef = "bankEntityManagerFactory",
         transactionManagerRef = "bankTransactionManager",
         basePackageClasses = { AccountRepository.class })
+@EnableTransactionManagement
 @EnableConfigurationProperties( {AppConfigurationBankDB.DataSourceBankProperties.class})
 public class AppConfigurationBankDB implements Logger {
 
     @Autowired
     private DataSourceBankProperties bankProperties;
 
-    @Autowired
-    private JpaVendorAdapter vendorAdapter;
+    @Bean(name = "bankDataSource")
+    public DataSource bankDataSource() {
+        return DatabaseUtils.createDataSource(bankProperties, this);
+    }
 
     @Bean(name = "bankEntityManager")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-        trace("Bank JPA properties: {}", bankProperties.getJpaProperties());
+    public EntityManager entityManager() {
+        return entityManagerFactory().createEntityManager();
+    }
 
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(DatabaseUtils.createDataSource(bankProperties, this));
-        em.setPackagesToScan(PackageUtils.getPackageNames(Account.class));
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(bankProperties.getJpaProperties());
-        em.setPersistenceUnitName("bankPersistanceUnit");
+    @Bean(name = "bankEntityManagerFactory")
+    public EntityManagerFactory entityManagerFactory() {
+        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
 
-        return em;
+        LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
+        lef.setDataSource(bankDataSource());
+        lef.setJpaVendorAdapter(jpaVendorAdapter);
+        lef.setPackagesToScan(PackageUtils.getPackageNames(Account.class));
+        lef.setPersistenceUnitName("bankPersistanceUnit");
+        lef.setJpaProperties(bankProperties.getJpaProperties());
+        lef.afterPropertiesSet();
+        return lef.getObject();
     }
 
     @Bean(name = "bankTransactionManager")
-    public JpaTransactionManager transactionManager(EntityManagerFactory bankEntityManager){
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(bankEntityManager);
-
-        return transactionManager;
+    public PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager(entityManagerFactory());
     }
 
     @ConfigurationProperties(prefix = "datasource.bank")

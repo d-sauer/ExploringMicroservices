@@ -5,24 +5,26 @@ datasource:
         driverClassName: org.h2.Driver
         url: jdbc:h2:file:~/.backbase/poc/cxp6/bankService;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
 
-        #Override properties from 'spring.jpa'
         jpa:
+            generate-ddl: true
+            database: H2
             hibernate:
-                show_sql: false
+                show_sql: true
+                naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+                hbm2ddl:
+                    auto: update
 
     audit:
         username: sa
         password: sa
         driverClassName: org.h2.Driver
         url: jdbc:h2:file:~/.backbase/poc/cxp6/auditService;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
-
-spring:
-    jpa:
-        generate-ddl: true
-        database: H2
-        hibernate:
-            show_sql: true
-            naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
-            hbm2ddl:
-                auto: update
+        jpa:
+            generate-ddl: true
+            database: H2
+            hibernate:
+                show_sql: true
+                naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+                hbm2ddl:
+                    auto: update
 
