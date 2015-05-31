@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -50,8 +49,6 @@ public class Application implements CommandLineRunner {
     public static void main(String [] args) {
         log.debug("bankService service");
         ConfigurableApplicationContext cac = SpringApplication.run(Application.class, args);
-
-        log.debug("List of created beans: {}", Arrays.asList(cac.getBeanDefinitionNames()));
     }
 
     @Override

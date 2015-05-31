@@ -1,5 +1,6 @@
 package ms.api.service.autoconfig;
 
+import ms.api.service.autoconfig.database.BaseDataSourceFactory;
 import ms.api.service.discover.properties.ApiDiscoverProperties;
 import ms.api.service.discover.rest.DiscoverController;
 import ms.api.service.autoconfig.database.BaseJpaDataSourceProperties;
@@ -40,6 +41,12 @@ public class CxpAutoConfiguration implements Logger {
     public BaseJpaDataSourceProperties baseJpaDataSourceProperties() {
         trace("BaseJpaDataSourceProperties from 'spring.jpa' property segment");
         return new BaseJpaDataSourceProperties();
+    }
+
+    @Bean(name = "baseDataSourceFactory")
+    @ConditionalOnBean(BaseDataSourceProperties.class)
+    public BaseDataSourceFactory baseDataSourceFactory() {
+        return new BaseDataSourceFactory();
     }
 
 }

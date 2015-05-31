@@ -74,6 +74,6 @@ public class AppConfigurationBankDB implements Logger {
     }
 
     @ConfigurationProperties(prefix = "datasource.bank")
-    static class DataSourceBankProperties extends BaseDataSourceProperties { }
+    public static class DataSourceBankProperties extends BaseDataSourceProperties { }
 
 }

@@ -15,10 +15,10 @@ import java.util.StringJoiner;
  *
  * @see BaseJpaDataSourceProperties
  */
-@DependsOn("BaseJpaDataSourceProperties")
+@DependsOn("baseJpaDataSourceProperties")
 public class BaseDataSourceProperties {
 
-    @Autowired(required = false)
+    @Autowired
     private BaseJpaDataSourceProperties baseJpaProperties;
 
     private String username;
