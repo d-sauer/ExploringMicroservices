@@ -18,7 +18,7 @@ import java.util.StringJoiner;
 @DependsOn("BaseJpaDataSourceProperties")
 public class BaseDataSourceProperties {
 
-    @Autowired
+    @Autowired(required = false)
     private BaseJpaDataSourceProperties baseJpaProperties;
 
     private String username;
@@ -83,7 +83,9 @@ public class BaseDataSourceProperties {
     public Properties getJpaProperties() {
         Map<String, Object> flatPropertiesMap = new HashMap<>();
         // Flat spring.jpa properties
-        flatPropertiesMap.putAll(PropertyUtils.flatPropertiesMap(baseJpaProperties.getJpa()));
+        if (baseJpaProperties != null) {
+            flatPropertiesMap.putAll(PropertyUtils.flatPropertiesMap(baseJpaProperties.getJpa()));
+        }
 
         // Flat from 'jpa' segment
         flatPropertiesMap.putAll(PropertyUtils.flatPropertiesMap(jpa));

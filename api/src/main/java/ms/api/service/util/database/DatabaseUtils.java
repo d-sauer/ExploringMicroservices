@@ -2,6 +2,7 @@ package ms.api.service.util.database;
 
 import org.slf4j.Logger;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 
 import javax.sql.DataSource;
 
@@ -10,14 +11,19 @@ import javax.sql.DataSource;
  */
 public class DatabaseUtils {
 
-    public static DataSource createDataSource(BaseDataSourceProperties properties, Logger logger){
-        logger.debug("Create datasource with properties: {}", properties);
+    public static DataSource createDataSource(BaseDataSourceProperties properties){
         return DataSourceBuilder.create(properties.getClass().getClassLoader())
                 .url(properties.getUrl())
                 .driverClassName(properties.getDriverClassName())
                 .username(properties.getUsername())
                 .password(properties.getPassword())
                 .build();
+    }
+
+    public static DataSource getJndiDataSource(String jndiName) {
+        JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+        DataSource dataSource = dataSourceLookup.getDataSource(jndiName);
+        return dataSource;
     }
 
 }

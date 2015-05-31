@@ -1,7 +1,7 @@
 package ms.services.bankService;
 
+import ms.api.service.autoconfig.database.BaseDataSourceFactory;
 import ms.api.service.util.database.BaseDataSourceProperties;
-import ms.api.service.util.database.DatabaseUtils;
 import ms.commons.logging.Logger;
 import ms.commons.util.PackageUtils;
 import ms.services.bankService.core.bank.model.entities.Account;
@@ -19,6 +19,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -35,9 +36,17 @@ public class AppConfigurationBankDB implements Logger {
     @Autowired
     private DataSourceBankProperties bankProperties;
 
+    @Autowired
+    private BaseDataSourceFactory dataSourceFactory;
+
+    @PostConstruct
+    private void postConstruct() {
+        trace("Bank AppConfigurationBankDB");
+    }
+
     @Bean(name = "bankDataSource")
     public DataSource bankDataSource() {
-        return DatabaseUtils.createDataSource(bankProperties, this);
+        return dataSourceFactory.getDatasoDataSource(bankProperties);
     }
 
     @Bean(name = "bankEntityManager")

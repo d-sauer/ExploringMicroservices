@@ -1,7 +1,7 @@
 package ms.services.bankService;
 
+import ms.api.service.autoconfig.database.BaseDataSourceFactory;
 import ms.api.service.util.database.BaseDataSourceProperties;
-import ms.api.service.util.database.DatabaseUtils;
 import ms.commons.logging.Logger;
 import ms.commons.util.PackageUtils;
 import ms.services.bankService.core.audit.model.entities.Audit;
@@ -19,6 +19,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -35,9 +36,17 @@ public class AppConfigurationAuditDB implements Logger {
     @Autowired
     private DataSourceAuditProperties auditProperties;
 
+    @Autowired
+    private BaseDataSourceFactory dataSourceFactory;
+
+    @PostConstruct
+    private void postConstruct() {
+        trace("Audit AppConfigurationAuditDB");
+    }
+
     @Bean(name = "auditDataSource")
     public DataSource auditDataSource() {
-        return DatabaseUtils.createDataSource(auditProperties, this);
+        return dataSourceFactory.getDatasoDataSource(auditProperties);
     }
 
     @Bean(name = "auditEntityManager")
