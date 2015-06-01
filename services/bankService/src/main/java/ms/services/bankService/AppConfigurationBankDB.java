@@ -7,6 +7,7 @@ import ms.commons.util.PackageUtils;
 import ms.services.bankService.core.bank.model.entities.Account;
 import ms.services.bankService.core.bank.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -50,8 +51,8 @@ public class AppConfigurationBankDB implements Logger {
     }
 
     @Bean(name = "bankEntityManager")
-    public EntityManager entityManager() {
-        return entityManagerFactory().createEntityManager();
+    public EntityManager entityManager(@Qualifier("bankEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+        return entityManagerFactory.createEntityManager();
     }
 
     @Bean(name = "bankEntityManagerFactory")
@@ -59,7 +60,7 @@ public class AppConfigurationBankDB implements Logger {
         JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
 
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-        lef.setDataSource(bankDataSource());
+        lef.setDataSource(dataSourceFactory.getDatasoDataSource(bankProperties));
         lef.setJpaVendorAdapter(jpaVendorAdapter);
         lef.setPackagesToScan(PackageUtils.getPackageNames(Account.class));
         lef.setPersistenceUnitName("bankPersistanceUnit");
@@ -69,11 +70,11 @@ public class AppConfigurationBankDB implements Logger {
     }
 
     @Bean(name = "bankTransactionManager")
-    public PlatformTransactionManager transactionManager() {
-        return new JpaTransactionManager(entityManagerFactory());
+    public PlatformTransactionManager transactionManager(@Qualifier("bankEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
     @ConfigurationProperties(prefix = "datasource.bank")
-    public static class DataSourceBankProperties extends BaseDataSourceProperties { }
-
+    public static class DataSourceBankProperties extends BaseDataSourceProperties {
+    }
 }

@@ -7,6 +7,7 @@ import ms.commons.util.PackageUtils;
 import ms.services.bankService.core.audit.model.entities.Audit;
 import ms.services.bankService.core.audit.repositories.AuditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -50,8 +51,8 @@ public class AppConfigurationAuditDB implements Logger {
     }
 
     @Bean(name = "auditEntityManager")
-    public EntityManager entityManager() {
-        return entityManagerFactory().createEntityManager();
+    public EntityManager entityManager(@Qualifier("auditEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+        return entityManagerFactory.createEntityManager();
     }
 
     @Bean(name = "auditEntityManagerFactory")
@@ -59,7 +60,7 @@ public class AppConfigurationAuditDB implements Logger {
         JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
 
         LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-        lef.setDataSource(auditDataSource());
+        lef.setDataSource(dataSourceFactory.getDatasoDataSource(auditProperties));
         lef.setJpaVendorAdapter(jpaVendorAdapter);
         lef.setPackagesToScan(PackageUtils.getPackageNames(Audit.class));
         lef.setPersistenceUnitName("auditPersistanceUnit");
@@ -69,10 +70,10 @@ public class AppConfigurationAuditDB implements Logger {
     }
 
     @Bean(name = "auditTransactionManager")
-    public PlatformTransactionManager transactionManager() {
-        return new JpaTransactionManager(entityManagerFactory());
+    public PlatformTransactionManager transactionManager(@Qualifier("auditEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
     @ConfigurationProperties(prefix = "datasource.audit")
-    static class DataSourceAuditProperties extends BaseDataSourceProperties { }
+    public static class DataSourceAuditProperties extends BaseDataSourceProperties { }
 }

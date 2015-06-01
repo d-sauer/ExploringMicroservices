@@ -18,7 +18,6 @@ public class BaseDataSourceFactory implements Logger {
     private Map<BaseDataSourceProperties, DataSource> registeredDataSources = new HashMap<>();
 
     public DataSource getDatasoDataSource(BaseDataSourceProperties properties) {
-
         for (Map.Entry<BaseDataSourceProperties, DataSource> entry : registeredDataSources.entrySet()) {
             BaseDataSourceProperties entryProperties = entry.getKey();
 
@@ -36,7 +35,7 @@ public class BaseDataSourceFactory implements Logger {
 
 
     private DataSource registerDataSource(BaseDataSourceProperties properties) {
-        debug("Create new datasource from properties: {}", properties);
+        debug("Create new DataSource from properties: {}", properties);
 
         DataSource dataSource = DatabaseUtils.createDataSource(properties);
         registeredDataSources.put(properties, dataSource);

@@ -1,6 +1,5 @@
 package ms.api.service.util.database;
 
-import org.slf4j.Logger;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 
