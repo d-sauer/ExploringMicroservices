@@ -6,15 +6,15 @@ import ms.services.userService.core.services.UserService;
 import ms.services.userService.core.services.exceptions.UserCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * Created by davor on 22/05/15.
  */
 @Service
-@Transactional
+@Transactional("userTransactionManager")
 public class UserServiceImpl implements UserService {
 
     @Autowired
