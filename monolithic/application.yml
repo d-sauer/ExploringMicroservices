@@ -17,3 +17,52 @@ calculator:
 
 custom:
     property3: Monolithic custom property in project root
+
+
+##
+# Datasources
+##
+datasource:
+    user:
+        username: sa
+        password: sa
+        driver-class-name: org.h2.Driver
+        url: jdbc:h2:file:~/.backbase/poc/cxp6/userServiceMono;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
+
+        jpa:
+            hibernate:
+                hbm2ddl:
+                    auto: update
+                dialect: org.hibernate.dialect.H2Dialect
+                show_sql: true
+
+    bank:
+        username: sa
+        password: sa
+        driverClassName: org.h2.Driver
+        url: jdbc:h2:file:~/.backbase/poc/cxp6/bankServiceMono;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
+
+        jpa:
+            generate-ddl: true
+            database: H2
+            hibernate:
+                show_sql: true
+                naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+                hbm2ddl:
+                    auto: update
+
+    audit:
+        username: sa
+        password: sa
+        driverClassName: org.h2.Driver
+        url: jdbc:h2:file:~/.backbase/poc/cxp6/auditServiceMono;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
+
+        jpa:
+            generate-ddl: true
+            database: H2
+            hibernate:
+                show_sql: true
+                naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+                hbm2ddl:
+                    auto: update
+

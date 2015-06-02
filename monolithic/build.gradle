@@ -17,7 +17,9 @@ dependencies {
 
     compile project (':services:calculator')
     compile project (':services:time')
-    
+    compile project (':services:userService')
+    compile project (':services:bankService')
+
     // Spring-Boot
     compile (group: "org.springframework.boot", name:"spring-boot-starter-web", version: springBootVersion) {
         exclude module: "spring-boot-starter-tomcat" // Don't use Tomcat as default container

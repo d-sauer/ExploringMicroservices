@@ -1,28 +1,22 @@
 package ms.services.bankService;
 
 import ms.api.service.autoconfig.database.BaseDataSourceFactory;
-import ms.api.service.util.database.BaseDataSourceProperties;
 import ms.commons.logging.Logger;
 import ms.commons.util.PackageUtils;
 import ms.services.bankService.core.bank.model.entities.Account;
 import ms.services.bankService.core.bank.repositories.AccountRepository;
+import ms.services.bankService.core.bank.services.impl.AccountServiceImpl;
+import ms.services.bankService.rest.mvc.AccountController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
@@ -30,7 +24,8 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "bankEntityManagerFactory",
         transactionManagerRef = "bankTransactionManager",
         basePackageClasses = { AccountRepository.class })
-@EnableConfigurationProperties( {AppConfigurationBankDB.DataSourceBankProperties.class})
+@Import({DataSourceBankProperties.class})
+@ComponentScan(basePackageClasses = {AccountController.class, AccountServiceImpl.class})
 public class AppConfigurationBankDB implements Logger {
 
     @Autowired
@@ -59,7 +54,4 @@ public class AppConfigurationBankDB implements Logger {
         return dataSourceFactory.get(bankProperties).getJpaTransactionManager("bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
     }
 
-    @ConfigurationProperties(prefix = "datasource.bank")
-    public static class DataSourceBankProperties extends BaseDataSourceProperties {
-    }
 }

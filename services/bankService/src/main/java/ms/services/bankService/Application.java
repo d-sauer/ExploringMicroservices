@@ -26,7 +26,6 @@ import java.util.Random;
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class })
-@EnableTransactionManagement
 @EnableCxp
 public class Application implements CommandLineRunner {
 

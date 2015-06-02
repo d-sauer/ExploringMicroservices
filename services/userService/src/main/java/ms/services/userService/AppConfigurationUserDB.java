@@ -3,9 +3,13 @@ package ms.services.userService;
 import ms.api.service.autoconfig.database.BaseDataSourceFactory;
 import ms.commons.logging.Logger;
 import ms.services.userService.core.repositories.UserRepository;
+import ms.services.userService.core.services.impl.UserServiceImpl;
+import ms.services.userService.rest.mvc.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,6 +22,8 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "userEntityManagerFactory",
         transactionManagerRef = "userTransactionManager",
         basePackageClasses = {UserRepository.class})
+@Import({DataSourceUserProperties.class})
+@ComponentScan(basePackageClasses = {UserController.class, UserServiceImpl.class})
 public class AppConfigurationUserDB implements Logger {
 
     @Autowired

@@ -37,14 +37,14 @@ public class CxpAutoConfiguration implements Logger {
     }
 
     @Bean(name = "baseJpaDataSourceProperties")
-    @ConditionalOnBean(BaseDataSourceProperties.class)
+//    @ConditionalOnBean(BaseDataSourceProperties.class)
     public BaseJpaDataSourceProperties baseJpaDataSourceProperties() {
         trace("BaseJpaDataSourceProperties from 'spring.jpa' property segment");
         return new BaseJpaDataSourceProperties();
     }
 
     @Bean(name = "baseDataSourceFactory")
-    @ConditionalOnBean(BaseDataSourceProperties.class)
+//    @ConditionalOnBean(BaseDataSourceProperties.class)
     public BaseDataSourceFactory baseDataSourceFactory() {
         return new BaseDataSourceFactory();
     }
