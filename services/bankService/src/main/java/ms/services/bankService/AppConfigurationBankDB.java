@@ -30,7 +30,6 @@ import javax.sql.DataSource;
         entityManagerFactoryRef = "bankEntityManagerFactory",
         transactionManagerRef = "bankTransactionManager",
         basePackageClasses = { AccountRepository.class })
-@EnableTransactionManagement
 @EnableConfigurationProperties( {AppConfigurationBankDB.DataSourceBankProperties.class})
 public class AppConfigurationBankDB implements Logger {
 
@@ -47,31 +46,17 @@ public class AppConfigurationBankDB implements Logger {
 
     @Bean(name = "bankDataSource")
     public DataSource bankDataSource() {
-        return dataSourceFactory.getDatasoDataSource(bankProperties);
-    }
-
-    @Bean(name = "bankEntityManager")
-    public EntityManager entityManager(@Qualifier("bankEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return entityManagerFactory.createEntityManager();
+        return dataSourceFactory.get(bankProperties).getDataSource();
     }
 
     @Bean(name = "bankEntityManagerFactory")
-    public EntityManagerFactory entityManagerFactory() {
-        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-
-        LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
-        lef.setDataSource(dataSourceFactory.getDatasoDataSource(bankProperties));
-        lef.setJpaVendorAdapter(jpaVendorAdapter);
-        lef.setPackagesToScan(PackageUtils.getPackageNames(Account.class));
-        lef.setPersistenceUnitName("bankPersistanceUnit");
-        lef.setJpaProperties(bankProperties.getJpaProperties());
-        lef.afterPropertiesSet();
-        return lef.getObject();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        return dataSourceFactory.get(bankProperties).getEntityManagerFactoryBean("bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
     }
 
     @Bean(name = "bankTransactionManager")
-    public PlatformTransactionManager transactionManager(@Qualifier("bankEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    public PlatformTransactionManager transactionManager() {
+        return dataSourceFactory.get(bankProperties).getJpaTransactionManager("bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
     }
 
     @ConfigurationProperties(prefix = "datasource.bank")
