@@ -40,7 +40,7 @@ datasource:
         username: sa
         password: sa
         driverClassName: org.h2.Driver
-        url: jdbc:h2:file:~/.backbase/poc/cxp6/bankServiceMono;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:file:~/.backbase/poc/cxp6/bank_auditServiceMono;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
 
         jpa:
             generate-ddl: true
@@ -55,7 +55,7 @@ datasource:
         username: sa
         password: sa
         driverClassName: org.h2.Driver
-        url: jdbc:h2:file:~/.backbase/poc/cxp6/auditServiceMono;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
+        url: jdbc:h2:file:~/.backbase/poc/cxp6/bank_auditServiceMono;MVCC=TRUE;DB_CLOSE_ON_EXIT=FALSE
 
         jpa:
             generate-ddl: true

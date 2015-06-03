@@ -47,12 +47,12 @@ public class AppConfigurationAuditDB implements Logger {
 
     @Bean(name = "auditEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
-        return dataSourceFactory.get(auditProperties).getEntityManagerFactoryBean("auditPersistanceUnit", PackageUtils.getPackageNames(Audit.class));
+        return dataSourceFactory.get(auditProperties).getEntityManagerFactoryBean("auditEntityManagerFactory", "auditPersistanceUnit", PackageUtils.getPackageNames(Audit.class));
     }
 
     @Bean(name = "auditTransactionManager")
     public PlatformTransactionManager transactionManager() {
-        return dataSourceFactory.get(auditProperties).getJpaTransactionManager("auditPersistanceUnit", PackageUtils.getPackageNames(Audit.class));
+        return dataSourceFactory.get(auditProperties).getJpaTransactionManager("auditEntityManagerFactory", "auditPersistanceUnit", PackageUtils.getPackageNames(Audit.class));
     }
 
 }

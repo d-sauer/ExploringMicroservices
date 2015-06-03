@@ -46,12 +46,12 @@ public class AppConfigurationBankDB implements Logger {
 
     @Bean(name = "bankEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        return dataSourceFactory.get(bankProperties).getEntityManagerFactoryBean("bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
+        return dataSourceFactory.get(bankProperties).getEntityManagerFactoryBean("bankEntityManagerFactory", "bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
     }
 
     @Bean(name = "bankTransactionManager")
     public PlatformTransactionManager transactionManager() {
-        return dataSourceFactory.get(bankProperties).getJpaTransactionManager("bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
+        return dataSourceFactory.get(bankProperties).getJpaTransactionManager("bankEntityManagerFactory", "bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
     }
 
 }

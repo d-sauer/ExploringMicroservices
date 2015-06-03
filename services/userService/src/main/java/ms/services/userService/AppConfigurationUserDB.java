@@ -1,6 +1,7 @@
 package ms.services.userService;
 
 import ms.api.service.autoconfig.database.BaseDataSourceFactory;
+import ms.api.service.util.database.DatabaseUtils;
 import ms.commons.logging.Logger;
 import ms.services.userService.core.repositories.UserRepository;
 import ms.services.userService.core.services.impl.UserServiceImpl;
@@ -44,12 +45,12 @@ public class AppConfigurationUserDB implements Logger {
 
     @Bean(name = "userEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
-        return dataSourceFactory.get(userProperties).getEntityManagerFactoryBean("userPersistanceUnit", new String[] {"ms.services.userService.core.model.entities"});
+        return dataSourceFactory.get(userProperties).getEntityManagerFactoryBean("userEntityManagerFactory", "userPersistanceUnit", new String[] {"ms.services.userService.core.model.entities"});
     }
 
     @Bean(name = "userTransactionManager")
     public JpaTransactionManager transactionManager(){
-        return dataSourceFactory.get(userProperties).getJpaTransactionManager("userPersistanceUnit", new String[]{"ms.services.userService.core.model.entities"});
+        return dataSourceFactory.get(userProperties).getJpaTransactionManager("userEntityManagerFactory", "userPersistanceUnit", new String[]{"ms.services.userService.core.model.entities"});
     }
 
 }
