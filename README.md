@@ -73,9 +73,10 @@ $gradle war
 + api
 + commons
 + services
-  - shared
   - calculator
   - time
+  - userService (example with one DataSource: user)
+  - bankService (example with two DataSources: bank, audit)
 
 
 # HowTo
@@ -88,10 +89,8 @@ By enabling CXP nature with ```@EnableCXP``` there is also Swagger integration f
 To access Swagger you can check this URL's: http://localhost:8080/swagger-ui.html and http://localhost:8080/v2/api-docs/
  
 ## Features
-- Add support for nesting properties file inside monolithic build with microservice namespace. Support to target specific property value for specific micorservice
+- Support for nesting properties file inside monolithic build with microservice namespace. Support to target specific property value for specific micorservice
+- Support for custom creating DataSource and merging datasource (for monolithic build)
 
 ## ToDo
-+ simplify develpment
-  + remove Microservice extends, and use @EnableCXP (Check Spring-JMS as example @EnableJms)
-- add support for YAML configuration
-- datasource
+- Simplify DataSource configuration
