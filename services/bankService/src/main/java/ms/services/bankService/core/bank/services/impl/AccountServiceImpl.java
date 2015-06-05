@@ -13,7 +13,7 @@ import java.util.List;
  * Created by davor on 28/05/15.
  */
 @Service
-@Transactional("bankTransactionManager")
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     @Autowired

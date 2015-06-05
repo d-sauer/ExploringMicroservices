@@ -13,7 +13,7 @@ import java.util.List;
  * Created by davor on 28/05/15.
  */
 @Service
-@Transactional("auditTransactionManager")
+@Transactional
 public class AuditServiceImpl implements AuditService {
 
     @Autowired
