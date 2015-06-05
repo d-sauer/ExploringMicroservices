@@ -1,5 +1,6 @@
 package ms.api.service.util.database;
 
+import ms.commons.util.PackageUtils;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,19 +18,41 @@ import java.util.Properties;
  */
 public class DatabaseUtils {
 
-    public static DataSource createDataSource(BaseDataSourceProperties properties){
-        return DataSourceBuilder.create(properties.getClass().getClassLoader())
-                .url(properties.getUrl())
-                .driverClassName(properties.getDriverClassName())
-                .username(properties.getUsername())
-                .password(properties.getPassword())
-                .build();
+    public static DataSource createDataSource(Properties properties){
+        Object url = properties.get("url");
+        Object driverClassName = properties.getProperty("driver-class-name");
+        Object username = properties.getProperty("username");
+        Object password = properties.getProperty("password");
+
+        DataSourceBuilder builder = DataSourceBuilder.create();
+
+        if (url != null) {
+            builder.url(url.toString());
+        }
+
+        if (driverClassName != null) {
+            builder.driverClassName(driverClassName.toString());
+        }
+
+        if (username != null) {
+            builder.username(username.toString());
+        }
+
+        if (password != null) {
+            builder.password(password.toString());
+        }
+
+        return builder.build();
     }
 
     public static DataSource getJndiDataSource(String jndiName) {
         JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
         DataSource dataSource = dataSourceLookup.getDataSource(jndiName);
         return dataSource;
+    }
+
+    public static LocalContainerEntityManagerFactoryBean createEntityManagerFactoryBean(String persistanceName, DataSource dataSource, Properties jpaProperties, Class<?>[] entitiePackages) {
+        return createEntityManagerFactoryBean(persistanceName, dataSource, jpaProperties, PackageUtils.getPackageNames(entitiePackages));
     }
 
     public static LocalContainerEntityManagerFactoryBean createEntityManagerFactoryBean(String persistanceName, DataSource dataSource, Properties jpaProperties, String[] entitiePackages){
@@ -42,10 +65,6 @@ public class DatabaseUtils {
         em.setPersistenceUnitName(persistanceName);
 
         return em;
-    }
-
-    public static EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
-        return entityManagerFactory.createEntityManager();
     }
 
     public static JpaTransactionManager createJpaTransactionManager(EntityManagerFactory entityManagerFactory) {

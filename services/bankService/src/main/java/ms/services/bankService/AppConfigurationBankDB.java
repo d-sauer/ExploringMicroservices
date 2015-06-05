@@ -1,8 +1,8 @@
 package ms.services.bankService;
 
-import ms.api.service.autoconfig.database.BaseDataSourceFactory;
+import ms.api.service.autoconfig.jdbc.BaseJdbcConfiguration;
+import ms.api.service.autoconfig.jdbc.BaseJdbcFactoryBean;
 import ms.commons.logging.Logger;
-import ms.commons.util.PackageUtils;
 import ms.services.bankService.core.bank.model.entities.Account;
 import ms.services.bankService.core.bank.repositories.AccountRepository;
 import ms.services.bankService.core.bank.services.impl.AccountServiceImpl;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -21,18 +20,18 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "bankEntityManagerFactory",
-        transactionManagerRef = "bankTransactionManager",
-        basePackageClasses = { AccountRepository.class })
-@Import({DataSourceBankProperties.class})
+        entityManagerFactoryRef = AppConfigurationBankDB.ENTITY_MANAGER_FACTORY_REF,
+        transactionManagerRef = AppConfigurationBankDB.TRANSACTION_MANAGER_REF,
+        basePackageClasses = {AccountRepository.class, Account.class})
 @ComponentScan(basePackageClasses = {AccountController.class, AccountServiceImpl.class})
+@BaseJdbcConfiguration(prefix = "datasource.bank", persistanceUnitName = "bankPersistanceUnit")
 public class AppConfigurationBankDB implements Logger {
 
-    @Autowired
-    private DataSourceBankProperties bankProperties;
+    public static final String ENTITY_MANAGER_FACTORY_REF = "bankEntityManagerFactory";
+    public static final String TRANSACTION_MANAGER_REF = "bankTransactionManager";
 
     @Autowired
-    private BaseDataSourceFactory dataSourceFactory;
+    private BaseJdbcFactoryBean jdbcFactoryBean;
 
     @PostConstruct
     private void postConstruct() {
@@ -41,17 +40,17 @@ public class AppConfigurationBankDB implements Logger {
 
     @Bean(name = "bankDataSource")
     public DataSource bankDataSource() {
-        return dataSourceFactory.get(bankProperties).getDataSource();
+        return jdbcFactoryBean.getDataSource(AppConfigurationBankDB.class);
     }
 
-    @Bean(name = "bankEntityManagerFactory")
+    @Bean(name = AppConfigurationBankDB.ENTITY_MANAGER_FACTORY_REF)
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        return dataSourceFactory.get(bankProperties).getEntityManagerFactoryBean("bankEntityManagerFactory", "bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
+        return jdbcFactoryBean.getEntityManagerFactoryBean(AppConfigurationBankDB.class);
     }
 
-    @Bean(name = "bankTransactionManager")
+    @Bean(name = AppConfigurationBankDB.TRANSACTION_MANAGER_REF)
     public PlatformTransactionManager transactionManager() {
-        return dataSourceFactory.get(bankProperties).getJpaTransactionManager("bankEntityManagerFactory", "bankPersistanceUnit", PackageUtils.getPackageNames(Account.class));
+        return jdbcFactoryBean.getJpaTransactionManager(AppConfigurationBankDB.class);
     }
 
 }
