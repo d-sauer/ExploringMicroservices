@@ -93,4 +93,4 @@ To access Swagger you can check this URL's: http://localhost:8080/swagger-ui.htm
 - Support for custom creating DataSource and merging datasource (for monolithic build)
 
 ## ToDo
-- Simplify DataSource configuration
+- Simplify DataSource configuration, by providing default properties
