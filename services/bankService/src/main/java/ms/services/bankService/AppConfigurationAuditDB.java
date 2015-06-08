@@ -1,7 +1,7 @@
 package ms.services.bankService;
 
-import ms.api.service.autoconfig.jdbc.BaseJdbcConfiguration;
-import ms.api.service.autoconfig.jdbc.BaseJdbcFactoryBean;
+import ms.api.service.autoconfig.jdbc.EnableCustomJdbcConfiguration;
+import ms.api.service.autoconfig.jdbc.CustomJdbcFactoryBean;
 import ms.commons.logging.Logger;
 import ms.services.bankService.core.audit.model.entities.Audit;
 import ms.services.bankService.core.audit.repositories.AuditRepository;
@@ -24,14 +24,14 @@ import javax.sql.DataSource;
         transactionManagerRef = AppConfigurationAuditDB.TRANSACTION_MANAGER_REF,
         basePackageClasses = { AuditRepository.class, Audit.class })
 @ComponentScan(basePackageClasses = {AuditController.class, AuditServiceImpl.class})
-@BaseJdbcConfiguration(prefix = "datasource.audit", persistanceUnitName = "auditPersistanceUnit")
+@EnableCustomJdbcConfiguration(prefix = "datasource.audit", persistanceUnitName = "auditPersistanceUnit")
 public class AppConfigurationAuditDB implements Logger {
 
     public static final String ENTITY_MANAGER_FACTORY_REF = "auditEntityManagerFactory";
     public static final String TRANSACTION_MANAGER_REF = "auditTransactionManager";
 
     @Autowired
-    private BaseJdbcFactoryBean jdbcFactoryBean;
+    private CustomJdbcFactoryBean jdbcFactoryBean;
 
     @PostConstruct
     private void postConstruct() {

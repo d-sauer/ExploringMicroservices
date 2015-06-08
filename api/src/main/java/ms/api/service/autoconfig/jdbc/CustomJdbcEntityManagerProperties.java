@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by davor on 04/06/15.
  */
-public class BaseJdbcEntityManagerProperties {
+public class CustomJdbcEntityManagerProperties {
 
     private String [] basePackages;
 
@@ -53,8 +53,8 @@ public class BaseJdbcEntityManagerProperties {
         this.persistanceUnitName = persistanceUnitName;
     }
 
-    public static BaseJdbcEntityManagerProperties create(Class<?> configurationClass) {
-        BaseJdbcEntityManagerProperties properties = new BaseJdbcEntityManagerProperties();
+    public static CustomJdbcEntityManagerProperties create(Class<?> configurationClass) {
+        CustomJdbcEntityManagerProperties properties = new CustomJdbcEntityManagerProperties();
         EnableJpaRepositories enableJpaRepositories = AnnotationUtils.findAnnotation(configurationClass, EnableJpaRepositories.class);
         if (enableJpaRepositories != null) {
             Set<String> basePackages = new HashSet<>();
@@ -66,7 +66,7 @@ public class BaseJdbcEntityManagerProperties {
             properties.setTransactionManagerRef(enableJpaRepositories.transactionManagerRef());
         }
 
-        BaseJdbcConfiguration configuration = AnnotationUtils.findAnnotation(configurationClass, BaseJdbcConfiguration.class);
+        EnableCustomJdbcConfiguration configuration = AnnotationUtils.findAnnotation(configurationClass, EnableCustomJdbcConfiguration.class);
         if (configuration != null) {
             properties.setPersistanceUnitName(configuration.persistanceUnitName());
         }

@@ -13,8 +13,8 @@ import java.lang.annotation.*;
 @EnableJpaRepositories
 @Documented
 @Inherited
-@Import(BaseJdbcFactoryBean.class)
-public @interface BaseJdbcConfiguration  {
+@Import(CustomJdbcFactoryBean.class)
+public @interface EnableCustomJdbcConfiguration {
 
     String value() default "";
 

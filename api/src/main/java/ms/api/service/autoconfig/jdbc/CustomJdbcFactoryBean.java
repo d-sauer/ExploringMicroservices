@@ -22,7 +22,7 @@ import java.util.*;
  * Created by davor on 04/06/15.
  */
 @Component
-public class BaseJdbcFactoryBean implements Logger {
+public class CustomJdbcFactoryBean implements Logger {
 
     @Autowired
     private Environment env;
@@ -63,7 +63,7 @@ public class BaseJdbcFactoryBean implements Logger {
         if (bean == null) {
             debug("Create {} for configuration {}", LocalContainerEntityManagerFactoryBean.class, configurationClass);
 
-            BaseJdbcEntityManagerProperties entityManagerProperties = BaseJdbcEntityManagerProperties.create(configurationClass);
+            CustomJdbcEntityManagerProperties entityManagerProperties = CustomJdbcEntityManagerProperties.create(configurationClass);
             Properties jpaProperties = loadConfigurationProperties(extractPrefix(configurationClass) + ".jpa");
 
             String persistanceName = entityManagerProperties.getPersistanceUnitName();
@@ -131,7 +131,7 @@ public class BaseJdbcFactoryBean implements Logger {
 
 
     private String extractPrefix(Class<?> type) {
-        BaseJdbcConfiguration configuration = AnnotationUtils.findAnnotation(type, BaseJdbcConfiguration.class);
+        EnableCustomJdbcConfiguration configuration = AnnotationUtils.findAnnotation(type, EnableCustomJdbcConfiguration.class);
         if (configuration != null) {
             return StringUtils.hasLength(configuration.value()) ? configuration.value() : configuration.prefix();
         }

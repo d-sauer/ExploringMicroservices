@@ -1,7 +1,7 @@
 package ms.services.userService;
 
-import ms.api.service.autoconfig.jdbc.BaseJdbcConfiguration;
-import ms.api.service.autoconfig.jdbc.BaseJdbcFactoryBean;
+import ms.api.service.autoconfig.jdbc.EnableCustomJdbcConfiguration;
+import ms.api.service.autoconfig.jdbc.CustomJdbcFactoryBean;
 import ms.commons.logging.Logger;
 import ms.services.userService.core.model.entities.User;
 import ms.services.userService.core.repositories.UserRepository;
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -25,14 +24,14 @@ import javax.sql.DataSource;
         transactionManagerRef = AppConfigurationUserDB.TRANSACTION_MANAGER_REF,
         basePackageClasses = {UserRepository.class, User.class})
 @ComponentScan(basePackageClasses = {UserController.class, UserServiceImpl.class})
-@BaseJdbcConfiguration(prefix = "datasource.user", persistanceUnitName = "userPersistanceUnit")
+@EnableCustomJdbcConfiguration(prefix = "datasource.user", persistanceUnitName = "userPersistanceUnit")
 public class AppConfigurationUserDB implements Logger {
 
     public static final String ENTITY_MANAGER_FACTORY_REF = "userEntityManagerFactory";
     public static final String TRANSACTION_MANAGER_REF = "userTransactionManager";
 
     @Autowired
-    private BaseJdbcFactoryBean jdbcFactoryBean;
+    private CustomJdbcFactoryBean jdbcFactoryBean;
 
     @PostConstruct
     private void postConstruct() {
