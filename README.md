@@ -56,7 +56,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=ms.services.time.
 ```
 
 
-## Build JAW/WAR
+## Build JAR/WAR
 To build the executable JAR/WAR for each microservice, run gradle command in the service folder.
 Gradle will create jar and war files inside **build/libs**
 ```
@@ -82,14 +82,14 @@ $gradle war
 # HowTo
 
 ## Enable CXP nature
-For enabling CXP nature we simply need to add ```@EnableCXP``` annotation to our start up class.
+For enabling CXP nature we simply need to add ```@EnableCXP``` annotation to startup class.
 
 ## Swagger integration
 By enabling CXP nature with ```@EnableCXP``` there is also Swagger integration for automate documenting RESTfull API.
-To access Swagger you can check this URL's: http://localhost:8080/swagger-ui.html and http://localhost:8080/v2/api-docs/
+To access Swagger use this URL's: http://localhost:8080/swagger-ui.html and http://localhost:8080/v2/api-docs/
  
 ## Features
-- Support for nesting properties file inside monolithic build with microservice namespace. Support to target specific property value for specific micorservice
+- Support for nesting properties file inside monolithic build with microservice namespace. Support to target specific property value for specific microservice
 - Support for custom creating DataSource and merging datasource (for monolithic build)
 
 ## ToDo
