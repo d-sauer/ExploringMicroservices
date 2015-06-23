@@ -91,6 +91,3 @@ To access Swagger use this URL's: http://localhost:8080/swagger-ui.html and http
 ## Features
 - Support for nesting properties file inside monolithic build with microservice namespace. Support to target specific property value for specific microservice
 - Support for custom creating DataSource and merging datasource (for monolithic build)
-
-## ToDo
-- Simplify DataSource configuration, by providing default properties
