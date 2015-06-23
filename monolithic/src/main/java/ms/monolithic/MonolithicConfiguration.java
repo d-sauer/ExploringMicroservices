@@ -1,6 +1,6 @@
 package ms.monolithic;
 
-import ms.api.service.build.ServiceBuildType;
+import ms.api.service.buildType.ServiceBuildType;
 import ms.commons.logging.Logger;
 import ms.monolithic.impl.ServiceBuildTypeImpl;
 import ms.monolithic.processor.MonolithicBeanPostProcessor;

@@ -3,7 +3,7 @@ package ms.api.service.discover.rest;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 
-import ms.api.service.build.ServiceBuildType;
+import ms.api.service.buildType.ServiceBuildType;
 import ms.api.service.discover.dto.DiscoverData;
 import ms.api.service.discover.properties.ApiDiscoverProperties;
 import ms.commons.logging.Logger;

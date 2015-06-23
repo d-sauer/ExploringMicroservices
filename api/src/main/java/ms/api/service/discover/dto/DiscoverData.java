@@ -9,8 +9,8 @@ import java.util.jar.JarFile;
 
 import javax.servlet.ServletContext;
 
-import ms.api.service.build.ServiceBuildType;
-import ms.api.service.build.BuildType;
+import ms.api.service.buildType.ServiceBuildType;
+import ms.api.service.buildType.BuildType;
 import ms.api.service.discover.properties.ApiDiscoverProperties;
 import ms.commons.logging.Logger;
 

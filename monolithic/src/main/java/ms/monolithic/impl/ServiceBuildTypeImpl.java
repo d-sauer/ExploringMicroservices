@@ -1,7 +1,7 @@
 package ms.monolithic.impl;
 
-import ms.api.service.build.BuildType;
-import ms.api.service.build.ServiceBuildType;
+import ms.api.service.buildType.BuildType;
+import ms.api.service.buildType.ServiceBuildType;
 
 public class ServiceBuildTypeImpl implements ServiceBuildType {
 
