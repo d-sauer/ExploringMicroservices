@@ -1,6 +1,6 @@
 # Default application port
-server:
-    port: 8090
+#server:
+#    port: 8090
 
 # Service properties
 service:

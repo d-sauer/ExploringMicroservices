@@ -23,7 +23,7 @@ subprojects {
     //
     ext {
         springVersion = "4.1.6.RELEASE"
-        springBootVersion = "1.2.3.RELEASE"
+        springBootVersion = "1.2.4.RELEASE"
         junitVersion = "4.11"
         jacksonCoreVersion = "2.5.2"
         javaxServletApiVersion = "3.1.0"
